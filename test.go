@@ -2,6 +2,6 @@ package Garage
 
 import "fmt"
 
-func hello(){
+func Hello(){
 	fmt.Println("hi")
 }
