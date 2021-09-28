@@ -100,7 +100,8 @@ func importServicesViaTxt(fileName string) {
 			fmt.Println("Invalid given service id!")
 			continue
 		}
-		getService.amountResourcesNeeded, _ =strconv.Atoi(resources[2])
+		getService.timeHr, _ =strconv.ParseFloat(resources[2],64)
+		getService.amountResourcesNeeded, _ =strconv.Atoi(resources[3])
 		if !isIntPositive(getService.amountResourcesNeeded) {
 			fmt.Println("Invalid given service's resources amount!")
 			continue
