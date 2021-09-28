@@ -74,7 +74,7 @@ func importViaTxt(fileName string) {
 	}(importFile)
 	var getResource Resource
 	var getResourceId int
-	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,&getResource.name,&getResource.amountAvailable); isEOF != io.EOF
+	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,getResource.name,&getResource.amountAvailable); isEOF != io.EOF
 	{
 		if !isProductNameValid(getResource.name) {
 			fmt.Println("product name -"+ getResource.name +" need to contain only letters a-z , A-Z")
