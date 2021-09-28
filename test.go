@@ -49,7 +49,7 @@ func importResources(){
 		if line, err := in.ReadString('\n'); err != nil {
 			log.Fatalln("Wrong input resource name")
 		}else {
-			fmt.Println(line)
+			getResource.name = line
 		}
 		fmt.Printf("Please enter the resource quantity ->: ")
 		if _,err := fmt.Scanln(&getResource.amountAvailable); err != nil {
