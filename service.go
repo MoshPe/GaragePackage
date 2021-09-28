@@ -118,7 +118,7 @@ func importServicesViaTxt(fileName string) {
 
 func PrintServices() {
 	for id,service := range serviceList{
-		fmt.Printf("ID: %d, resource name: %s, service work time %f ,resource amount needed: %d, resources id's",id,service.name,service.timeHr,service.amountResourcesNeeded)
+		fmt.Printf("ID: %d, service name: %s, service work time %f ,resource amount needed: %d, resources id's",id,service.name,service.timeHr,service.amountResourcesNeeded)
 		fmt.Println(service.resourcesIdList)
 	}
 }
