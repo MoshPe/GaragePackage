@@ -12,9 +12,9 @@ type Resource struct {
 	amountAvailable int
 }
 
-var resourcesList = make(map[int]resource)
+var resourcesList = make(map[int]Resource)
 
-func GetResources() *map[int]resource{
+func GetResources() *map[int]Resource{
 	importResources()
 	return &resourcesList
 }
@@ -35,7 +35,7 @@ func importResources(){
 		}
 		importViaTxt(getFileName)
 	case 2:
-		var getResource resource
+		var getResource Resource
 		var getResourceId int
 		fmt.Printf("Please enter the resource id ->: ")
 		if _,err := fmt.Scanln(&getResourceId); err != nil {
@@ -54,7 +54,7 @@ func importResources(){
 }
 
 func importViaTxt(fileName string) {
-	importFile, err := os.Open(fileName) // For read access.
+	importFile, err := os.Open(fileName + ".txt") // For read access.
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -65,7 +65,7 @@ func importViaTxt(fileName string) {
 			log.Fatalln("Error in closing the import file")
 		}
 	}(importFile)
-	var getResource resource
+	var getResource Resource
 	var getResourceId int
 	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,&getResource.name,&getResource.amountAvailable); isEOF != nil
 	{
