@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 	"unicode"
 )
 
@@ -49,7 +50,7 @@ func importResources(){
 		if line, err := in.ReadString('\n'); err != nil {
 			log.Fatalln("Wrong input resource name")
 		}else {
-			getResource.name = line
+			getResource.name = strings.TrimRight(line, "\n")
 		}
 		fmt.Printf("Please enter the resource quantity ->: ")
 		if _,err := fmt.Scanln(&getResource.amountAvailable); err != nil {
