@@ -40,10 +40,8 @@ func importResources(){
 	case 2:
 		var getResource Resource
 		var getResourceId int
-		fmt.Printf("Please enter the resource id ->: ")
-		if _,err := fmt.Scanln(&getResourceId); err != nil {
-			log.Fatalln("Wrong input resource id")
-		}
+		intInput("Please enter the resource id ->: ","Wrong input resource id",&getResourceId)
+
 		//reading a full line
 		in := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter the resource name ->: ")
@@ -52,10 +50,7 @@ func importResources(){
 		}else {
 			getResource.name = strings.TrimRight(line, "\n")
 		}
-		fmt.Printf("Please enter the resource quantity ->: ")
-		if _,err := fmt.Scanln(&getResource.amountAvailable); err != nil {
-			log.Fatalln("Wrong input resource quantity")
-		}
+		intInput("Please enter the resource quantity ->: ","Wrong input resource quantity",&getResource.amountAvailable)
 		resourcesList[getResourceId] = getResource
 	}
 }
@@ -111,4 +106,17 @@ func isIntPositive(intToCheck int) bool{
 		return false
 	}
 	return true
+}
+
+func intInput(str,errStr string, inputTo *int,){
+	fmt.Print(str)
+	if _,err := fmt.Scanln(inputTo); err != nil {
+		log.Fatalln(errStr)
+	}
+}
+
+func PrintResources() {
+	for id,resource := range resourcesList{
+		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n",id,resource.name,resource.amountAvailable)
+	}
 }
