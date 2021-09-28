@@ -77,7 +77,8 @@ func importViaTxt(fileName string) {
 	scanner := bufio.NewScanner(importFile)
 	for scanner.Scan(){
 		resources := strings.Split(scanner.Text(), "\t")
-		if !isProductNameValid(resources[1]) {
+		getResource.name = resources[1]
+		if !isProductNameValid(getResource.name) {
 			fmt.Println("product name -"+ resources[1] +" need to contain only letters a-z , A-Z")
 			continue
 		}
