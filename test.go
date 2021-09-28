@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-type resource struct {
+type Resource struct {
 	name string
 	amountAvailable int
 }
