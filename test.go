@@ -1,7 +1,9 @@
 package Garage
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"unicode"
@@ -41,9 +43,13 @@ func importResources(){
 		if _,err := fmt.Scanln(&getResourceId); err != nil {
 			log.Fatalln("Wrong input resource id")
 		}
+		//reading a full line
+		in := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter the resource name ->: ")
-		if _,err := fmt.Scanln(&getResource.name); err != nil {
+		if line, err := in.ReadString('\n'); err != nil {
 			log.Fatalln("Wrong input resource name")
+		}else {
+			fmt.Println(line)
 		}
 		fmt.Printf("Please enter the resource quantity ->: ")
 		if _,err := fmt.Scanln(&getResource.amountAvailable); err != nil {
@@ -67,7 +73,7 @@ func importViaTxt(fileName string) {
 	}(importFile)
 	var getResource Resource
 	var getResourceId int
-	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,&getResource.name,&getResource.amountAvailable); isEOF != nil
+	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,&getResource.name,&getResource.amountAvailable); isEOF != io.EOF
 	{
 		if !isProductNameValid(getResource.name) {
 			fmt.Println("product name -"+ getResource.name +" need to contain only letters a-z , A-Z")
