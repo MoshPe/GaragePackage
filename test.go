@@ -67,17 +67,17 @@ func importViaTxt(fileName string) {
 	}(importFile)
 	var getResource Resource
 	var getResourceId int
-	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,&getResource.name,&getResource.amountAvailable); isEOF != nil
+	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,&getResource.name,&getResource.amountAvailable); isEOF == nil
 	{
-		if !isProductNameValid(&getResource.name) {
+		if !isProductNameValid(getResource.name) {
 			fmt.Println("product name -"+ getResource.name +" need to contain only letters a-z , A-Z")
 			continue
 		}
-		if !isIntPositive(&getResourceId) {
+		if !isIntPositive(getResourceId) {
 			fmt.Println("Invalid given product quantity!")
 			continue
 		}
-		if !isIntPositive(&getResource.amountAvailable) {
+		if !isIntPositive(getResource.amountAvailable) {
 			fmt.Println("Invalid given product quantity!")
 			continue
 		}
@@ -85,8 +85,8 @@ func importViaTxt(fileName string) {
 	}
 }
 
-func isProductNameValid(name *string) bool {
-	for _, r := range *name {
+func isProductNameValid(name string) bool {
+	for _, r := range name {
 		if !unicode.IsLetter(r) {
 			return false
 		}
@@ -95,8 +95,8 @@ func isProductNameValid(name *string) bool {
 }
 
 // Function gets an int and returns whether it's a positive int.
-func isIntPositive(intToCheck *int) bool{
-	if *intToCheck <= 0 {
+func isIntPositive(intToCheck int) bool{
+	if intToCheck <= 0 {
 		return false
 	}
 	return true
