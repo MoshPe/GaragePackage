@@ -98,7 +98,7 @@ func importViaTxt(fileName string) {
 
 func isProductNameValid(name string) bool {
 	for _, r := range name {
-		if !unicode.IsLetter(r) || r != ' '{
+		if !unicode.IsLetter(r) && r != ' '{
 			return false
 		}
 	}
