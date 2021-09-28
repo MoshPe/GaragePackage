@@ -106,8 +106,8 @@ func importServicesViaTxt(fileName string) {
 			fmt.Println("Invalid given service's resources amount!")
 			continue
 		}
-		for i := 3; i < getService.amountResourcesNeeded; i++ {
-			serviceId,_ := strconv.Atoi(resources[i])
+		for i := 0; i < getService.amountResourcesNeeded; i++ {
+			serviceId,_ := strconv.Atoi(resources[i+4])
 			getService.resourcesIdList = append(getService.resourcesIdList,serviceId)
 		}
 		serviceList[getServiceId] = getService
