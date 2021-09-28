@@ -85,10 +85,10 @@ func importServicesViaTxt(fileName string) {
 			log.Fatalln("Error in closing the import file")
 		}
 	}(importFile)
-	var getService Service
-	var getServiceId int
 	scanner := bufio.NewScanner(importFile)
 	for scanner.Scan(){
+		var getService Service
+		var getServiceId int
 		resources := strings.Split(scanner.Text(), "\t")
 		getService.name = resources[1]
 		if !isProductNameValid(getService.name) {
