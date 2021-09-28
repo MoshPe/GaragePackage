@@ -3,9 +3,9 @@ package Garage
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"unicode"
 )
@@ -74,18 +74,21 @@ func importViaTxt(fileName string) {
 	}(importFile)
 	var getResource Resource
 	var getResourceId int
-	for _,isEOF := fmt.Fscanf(importFile,"%d [^\t] %d",&getResourceId,getResource.name,&getResource.amountAvailable); isEOF != io.EOF
-	{
-		if !isProductNameValid(getResource.name) {
-			fmt.Println("product name -"+ getResource.name +" need to contain only letters a-z , A-Z")
+	scanner := bufio.NewScanner(importFile)
+	for scanner.Scan(){
+		resources := strings.Split(scanner.Text(), "\t")
+		if !isProductNameValid(resources[1]) {
+			fmt.Println("product name -"+ resources[1] +" need to contain only letters a-z , A-Z")
 			continue
 		}
+		getResourceId,_ = strconv.Atoi(resources[0])
 		if !isIntPositive(getResourceId) {
-			fmt.Println("Invalid given product quantity!")
+			fmt.Println("Invalid given resource id!")
 			continue
 		}
+		getResource.amountAvailable, _ =strconv.Atoi(resources[2])
 		if !isIntPositive(getResource.amountAvailable) {
-			fmt.Println("Invalid given product quantity!")
+			fmt.Println("Invalid given resource quantity!")
 			continue
 		}
 		resourcesList[getResourceId] = getResource
