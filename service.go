@@ -56,12 +56,8 @@ func importServices(){
 		if _,err := fmt.Scanln(&getService.timeHr); err != nil {
 			log.Fatalln("Wrong input resource quantity")
 		}
-		fmt.Printf("Please enter the service's resources work time in Hrs ->: ")
-		if _,err := fmt.Scanln(&getService.timeHr); err != nil {
-			log.Fatalln("Wrong input resource quantity")
-		}
 		var resourceId int
-		fmt.Println("Please enter the resources id's ->:")
+		fmt.Println("Please enter the resources id's (in one line) ->:")
 		for i := 0;;i++ {
 			getService.resourcesIdList = append(getService.resourcesIdList,resourceId)
 			if _,err := fmt.Scanln(&resourceId); err == io.EOF{
