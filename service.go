@@ -3,7 +3,6 @@ package Garage
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"strconv"
@@ -55,14 +54,17 @@ func ImportServices(){
 		}
 		fmt.Printf("Please enter the service work time in Hrs ->: ")
 		if _,err := fmt.Scanln(&getService.timeHr); err != nil {
-			log.Fatalln("Wrong input resource quantity")
+			log.Fatalln("Wrong input service work time")
+		}
+		fmt.Println("Please enter the amount of resources ->:")
+		if _,err := fmt.Scanln(&getService.amountResourcesNeeded); err != nil {
+			log.Fatalln("Wrong input resource's quantity")
 		}
 		var resourceId int
-		fmt.Println("Please enter the resources id's (in one line) ->:")
-		for i := 0;;i++ {
-			if _,err := fmt.Scanln(&resourceId); err == io.EOF{
-				getService.amountResourcesNeeded = i
-				break
+		fmt.Println("Please enter the resources id's ->:")
+		for i := 0;i < getService.amountResourcesNeeded;i++ {
+			if _,err := fmt.Scanf("%d",&resourceId); err != nil{
+				log.Fatalln("couldn't input resource's id")
 			}
 			getService.resourcesIdList = append(getService.resourcesIdList,resourceId)
 		}
