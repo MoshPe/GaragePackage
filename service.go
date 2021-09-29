@@ -66,6 +66,11 @@ func ImportServices(){
 			if _,err := fmt.Scanf("%d",&resourceId); err != nil{
 				log.Fatalln("couldn't input resource's id")
 			}
+			if !isResourceExist(resourceId){
+				fmt.Println("Resource",resourceId,"doesnt exist, Please try again")
+				i--
+				continue
+			}
 			getService.resourcesIdList = append(getService.resourcesIdList,resourceId)
 		}
 		serviceList[getServiceId] = getService
@@ -130,4 +135,3 @@ func PrintServices() {
 		fmt.Println(service.resourcesIdList)
 	}
 }
-
