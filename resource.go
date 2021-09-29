@@ -18,11 +18,10 @@ type Resource struct {
 var resourcesList = make(map[int]Resource)
 
 func GetResources() *map[int]Resource{
-	importResources()
 	return &resourcesList
 }
 
-func importResources(){
+func ImportResources(){
 	var getImportSelect int8
 	fmt.Printf("1 - import resources from a txt file\n" +
 		"2 - add a resource\n->:")
