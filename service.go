@@ -20,12 +20,10 @@ type Service struct {
 var serviceList = make(map[int]Service)
 
 func GetServices() *map[int]Service{
-	importServices()
 	return &serviceList
 }
 
-
-func importServices(){
+func ImportServices(){
 	var getImportSelect int8
 	fmt.Printf("1 - import services from a txt file\n" +
 		"2 - add a service\n->:")
@@ -45,9 +43,9 @@ func importServices(){
 		var getServiceId int
 		intInput("Please enter the service id ->: ","Wrong input service id",&getServiceId)
 		//reading a full line
-		in := bufio.NewReader(os.Stdin)
+		scanner := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter the service name ->: ")
-		if line, err := in.ReadString('\n'); err != nil {
+		if line, err := scanner.ReadString('\n'); err != nil {
 			log.Fatalln("Wrong input resource name")
 		}else {
 			getService.name = strings.TrimRight(line, "\n")
@@ -59,11 +57,11 @@ func importServices(){
 		var resourceId int
 		fmt.Println("Please enter the resources id's (in one line) ->:")
 		for i := 0;;i++ {
-			getService.resourcesIdList = append(getService.resourcesIdList,resourceId)
 			if _,err := fmt.Scanln(&resourceId); err == io.EOF{
 				getService.amountResourcesNeeded = i
 				break
 			}
+			getService.resourcesIdList = append(getService.resourcesIdList,resourceId)
 		}
 		serviceList[getServiceId] = getService
 	}
