@@ -46,7 +46,7 @@ func ImportServices(){
 		scanner := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter the service name ->: ")
 		if line, err := scanner.ReadString('\n'); err != nil {
-			log.Fatalln("Wrong input resource name")
+			log.Fatalln("Wrong input service name")
 		}else {
 			getService.name = strings.TrimRight(line, "\n")
 		}
