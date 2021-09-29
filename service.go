@@ -17,9 +17,9 @@ type Service struct {
 	resourcesIdList []int
 }
 
-var serviceList = make(map[int]Service)
+var serviceList = make(map[int] Service)
 
-func GetServices() *map[int]Service{
+func GetServices() *map[int] Service{
 	return &serviceList
 }
 
@@ -41,7 +41,10 @@ func ImportServices(){
 	case 2:
 		var getService Service
 		var getServiceId int
-		intInput("Please enter the service id ->: ","Wrong input service id",&getServiceId)
+		for ok := true; ok ;{
+			intInput("Please enter the service id ->: ","Wrong input service id",&getServiceId)
+			ok = isServiceExist(getServiceId)
+		}
 		//reading a full line
 		scanner := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter the service name ->: ")
@@ -89,7 +92,9 @@ func importServicesViaTxt(fileName string) {
 			fmt.Println("product name -"+ resources[1] +" need to contain only letters a-z , A-Z")
 			continue
 		}
-		getServiceId,_ = strconv.Atoi(resources[0])
+		if getServiceId,_ = strconv.Atoi(resources[0]); isServiceExist(getServiceId){
+				log.Fatalln("There is already a resource with the same id", getServiceId)
+		}
 		if !isIntPositive(getServiceId) {
 			fmt.Println("Invalid given service id!")
 			continue
@@ -108,7 +113,12 @@ func importServicesViaTxt(fileName string) {
 	}
 }
 
-
+func isServiceExist(serviceId int) bool{
+	if _, ok := serviceList[serviceId]; ok{
+		return true
+	}
+	return false
+}
 
 func PrintServices() {
 	for id,service := range serviceList{

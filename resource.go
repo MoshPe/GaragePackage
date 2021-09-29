@@ -39,6 +39,10 @@ func ImportResources(){
 	case 2:
 		var getResource Resource
 		var getResourceId int
+		for ok := true; ok ;{
+			intInput("Please enter the resource id ->: ","Wrong input resource id",&getResourceId)
+			ok = isResourceExist(getResourceId)
+		}
 		intInput("Please enter the resource id ->: ","Wrong input resource id",&getResourceId)
 
 		//reading a full line
@@ -88,6 +92,13 @@ func importViaTxt(fileName string) {
 		}
 		resourcesList[getResourceId] = getResource
 	}
+}
+
+func isResourceExist(resourceId int) bool{
+	if _, ok := resourcesList[resourceId]; ok{
+		return true
+	}
+	return false
 }
 
 func isProductNameValid(name string) bool {
