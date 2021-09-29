@@ -24,14 +24,14 @@ func ImportResources(){
 		log.Fatalln("Wrong import selection input")
 	}
 	switch getImportSelect {
-	case 1:
+	case importViaTextFile:
 		var getFileName string
 		fmt.Printf("Please enter the file.txt name ->: ")
 		if _,err := fmt.Scanln(&getFileName); err != nil {
 			log.Fatalln("Wrong import file name")
 		}
 		importViaTxt(getFileName)
-	case 2:
+	case addResourceManually:
 		var getResource Resource
 		var getResourceId int
 		for ok := true; ok ;{
@@ -57,33 +57,15 @@ func importViaTxt(fileName string) {
 		log.Fatal(err)
 	}
 	//close the file when the function finishes
-	defer func(importFile *os.File) {
-		err := importFile.Close()
-		if err != nil {
-			log.Fatalln("Error in closing the import file")
-		}
-	}(importFile)
+	defer closeFile(importFile)
+
 	var getResource Resource
 	var getResourceId int
 	scanner := bufio.NewScanner(importFile)
 	for scanner.Scan(){
 		resources := strings.Split(scanner.Text(), "\t")
-
-		if getResource.name = resources[1]; !isProductNameValid(getResource.name) {
-			fmt.Println("product name -"+ resources[1] +" need to contain only letters a-z , A-Z")
-			continue
-		}
-		if getResourceId,_ = strconv.Atoi(resources[0]); !isIntPositive(getResourceId) {
-			fmt.Println("Invalid given resource id!")
-			continue
-		}
-		if isResourceExist(getResourceId) {
-			fmt.Println("Invalid given resource id!")
-			continue
-		}
-		if getResource.amountAvailable, _ =strconv.Atoi(resources[2]); !isIntPositive(getResource.amountAvailable) {
-			fmt.Println("Invalid given resource quantity!")
-			continue
+		if errResult := checkResourceValidation(resources,&getResourceId,&getResource); errResult != ""{
+			fmt.Println(errResult)
 		}
 		resourcesList[getResourceId] = getResource
 	}
@@ -103,6 +85,26 @@ func isProductNameValid(name string) bool {
 		}
 	}
 	return true
+}
+
+func checkResourceValidation(resources []string, getResourceId *int, getResource *Resource) (errResult string){
+	const (
+		resourceId = 0
+		resourceName = 1
+		resourceQuantity = 2
+	)
+	if getResource.name = resources[resourceName]; !isProductNameValid(getResource.name) {
+		errResult = "product name -"+ resources[resourceName] +" need to contain only letters a-z , A-Z"
+	}
+	if getResourceId,_ = strconv.Atoi(resources[resourceId]); !isIntPositive(*getResourceId) {
+		errResult = "Invalid given resource id!"
+	}
+	if isResourceExist(*getResourceId) {
+		errResult = "Invalid given resource id!"
+	}
+	if getResource.amountAvailable, _ =strconv.Atoi(resources[resourceQuantity]); !isIntPositive(getResource.amountAvailable) {
+		errResult = "Invalid given resource quantity!"
+	}
 }
 
 // Function gets an int and returns whether it's a positive int.

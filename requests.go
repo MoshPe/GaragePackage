@@ -7,38 +7,37 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
-var serviceList = make(map[int] Service)
-const (
-	importViaTextFile = 1
-	addResourceManually = 2
-)
-const (
-	serviceId = 0
-	serviceName = 1
-	service = 2
-)
-func GetServices() *map[int] Service{
-	return &serviceList
+type Request struct {
+	timeArrival time.Time
+	amountOfServices int
+	servicesId []int
 }
 
-func ImportServices(){
+var requestList = make(map[int] Request)
+
+func GetRequests() *map[int] Request{
+	return &requestList
+}
+
+func ImportRequests(){
 	var getImportSelect int8
-	fmt.Printf("1 - import services from a txt file\n" +
+	fmt.Printf("1 - import requests from a txt file\n" +
 		"2 - add a service\n->:")
 	if _,err := fmt.Scanln(&getImportSelect); err != nil {
 		log.Fatalln("Wrong import selection input")
 	}
 	switch getImportSelect {
-	case importViaTextFile:
+	case 1:
 		var getFileName string
 		fmt.Printf("Please enter the file.txt name ->: ")
 		if _,err := fmt.Scanln(&getFileName); err != nil {
 			log.Fatalln("Wrong import file name")
 		}
 		importServicesViaTxt(getFileName)
-	case addResourceManually:
+	case 2:
 		var getService Service
 		var getServiceId int
 		for ok := true; ok ;{
@@ -84,11 +83,16 @@ func importServicesViaTxt(fileName string) {
 		log.Fatal(err)
 	}
 	//close the file when the function finishes
-	defer closeFile(importFile)
+	defer func(importFile *os.File) {
+		err := importFile.Close()
+		if err != nil {
+			log.Fatalln("Error in closing the import file")
+		}
+	}(importFile)
 	scanner := bufio.NewScanner(importFile)
-	var getService Service
-	var getServiceId int
 	for scanner.Scan(){
+		var getService Service
+		var getServiceId int
 		resources := strings.Split(scanner.Text(), "\t")
 		getService.name = resources[1]
 		if !isProductNameValid(getService.name) {
@@ -97,7 +101,7 @@ func importServicesViaTxt(fileName string) {
 		}
 		if getServiceId,_ = strconv.Atoi(resources[0]); isServiceExist(getServiceId){
 			fmt.Println("There is already a resource with the same id", getServiceId)
-				continue
+			continue
 		}
 
 		if !isIntPositive(getServiceId) {
