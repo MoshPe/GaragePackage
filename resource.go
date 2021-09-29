@@ -43,8 +43,6 @@ func ImportResources(){
 			intInput("Please enter the resource id ->: ","Wrong input resource id",&getResourceId)
 			ok = isResourceExist(getResourceId)
 		}
-		intInput("Please enter the resource id ->: ","Wrong input resource id",&getResourceId)
-
 		//reading a full line
 		in := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter the resource name ->: ")
@@ -75,18 +73,20 @@ func importViaTxt(fileName string) {
 	scanner := bufio.NewScanner(importFile)
 	for scanner.Scan(){
 		resources := strings.Split(scanner.Text(), "\t")
-		getResource.name = resources[1]
-		if !isProductNameValid(getResource.name) {
+
+		if getResource.name = resources[1]; !isProductNameValid(getResource.name) {
 			fmt.Println("product name -"+ resources[1] +" need to contain only letters a-z , A-Z")
 			continue
 		}
-		getResourceId,_ = strconv.Atoi(resources[0])
-		if !isIntPositive(getResourceId) {
+		if getResourceId,_ = strconv.Atoi(resources[0]); !isIntPositive(getResourceId) {
 			fmt.Println("Invalid given resource id!")
 			continue
 		}
-		getResource.amountAvailable, _ =strconv.Atoi(resources[2])
-		if !isIntPositive(getResource.amountAvailable) {
+		if isResourceExist(getResourceId) {
+			fmt.Println("Invalid given resource id!")
+			continue
+		}
+		if getResource.amountAvailable, _ =strconv.Atoi(resources[2]); !isIntPositive(getResource.amountAvailable) {
 			fmt.Println("Invalid given resource quantity!")
 			continue
 		}

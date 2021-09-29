@@ -93,8 +93,10 @@ func importServicesViaTxt(fileName string) {
 			continue
 		}
 		if getServiceId,_ = strconv.Atoi(resources[0]); isServiceExist(getServiceId){
-				log.Fatalln("There is already a resource with the same id", getServiceId)
+			fmt.Println("There is already a resource with the same id", getServiceId)
+				continue
 		}
+
 		if !isIntPositive(getServiceId) {
 			fmt.Println("Invalid given service id!")
 			continue
