@@ -9,13 +9,6 @@ import (
 	"strings"
 )
 
-type Service struct {
-	name string
-	timeHr float64
-	amountResourcesNeeded int
-	resourcesIdList []int
-}
-
 var serviceList = make(map[int] Service)
 
 func GetServices() *map[int] Service{

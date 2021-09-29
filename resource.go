@@ -10,11 +10,6 @@ import (
 	"unicode"
 )
 
-type Resource struct {
-	name string
-	amountAvailable int
-}
-
 var resourcesList = make(map[int]Resource)
 
 func GetResources() *map[int]Resource{
