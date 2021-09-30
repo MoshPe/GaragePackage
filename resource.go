@@ -7,7 +7,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 var resourcesList = make(map[int]Resource)
@@ -17,20 +16,10 @@ func GetResources() *map[int]Resource{
 }
 
 func ImportResources(){
-	var getImportSelect int8
-	fmt.Printf("1 - import resources from a txt file\n" +
-		"2 - add a resource\n->:")
-	if _,err := fmt.Scanln(&getImportSelect); err != nil {
-		log.Fatalln("Wrong import selection input")
-	}
+	getImportSelect := getImportSelection("resources")
 	switch getImportSelect {
 	case importViaTextFile:
-		var getFileName string
-		fmt.Printf("Please enter the file.txt name ->: ")
-		if _,err := fmt.Scanln(&getFileName); err != nil {
-			log.Fatalln("Wrong import file name")
-		}
-		importViaTxt(getFileName)
+		importServicesViaTxt(getFileName())
 	case addResourceManually:
 		var getResource Resource
 		var getResourceId int
@@ -38,16 +27,12 @@ func ImportResources(){
 			intInput("Please enter the resource id ->: ","Wrong input resource id",&getResourceId)
 			ok = isResourceExist(getResourceId)
 		}
-		//reading a full line
-		in := bufio.NewReader(os.Stdin)
-		fmt.Printf("Please enter the resource name ->: ")
-		if line, err := in.ReadString('\n'); err != nil {
-			log.Fatalln("Wrong input resource name")
-		}else {
-			getResource.name = strings.TrimRight(line, "\n")
-		}
+		getResource.name = inputName("resource")
 		intInput("Please enter the resource quantity ->: ","Wrong input resource quantity",&getResource.amountAvailable)
 		resourcesList[getResourceId] = getResource
+	}
+	for _, resource := range resourcesList{
+		resource.isTaken = make([]bool,resource.amountAvailable)
 	}
 }
 
@@ -58,7 +43,6 @@ func importViaTxt(fileName string) {
 	}
 	//close the file when the function finishes
 	defer closeFile(importFile)
-
 	var getResource Resource
 	var getResourceId int
 	scanner := bufio.NewScanner(importFile)
@@ -78,15 +62,6 @@ func isResourceExist(resourceId int) bool{
 	return false
 }
 
-func isProductNameValid(name string) bool {
-	for _, r := range name {
-		if !unicode.IsLetter(r) && r != ' '{
-			return false
-		}
-	}
-	return true
-}
-
 func checkResourceValidation(resources []string, getResourceId *int, getResource *Resource) (errResult string){
 	const (
 		resourceId = 0
@@ -96,7 +71,7 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 	if getResource.name = resources[resourceName]; !isProductNameValid(getResource.name) {
 		errResult = "product name -"+ resources[resourceName] +" need to contain only letters a-z , A-Z"
 	}
-	if getResourceId,_ = strconv.Atoi(resources[resourceId]); !isIntPositive(*getResourceId) {
+	if *getResourceId,_ = strconv.Atoi(resources[resourceId]); !isIntPositive(*getResourceId) {
 		errResult = "Invalid given resource id!"
 	}
 	if isResourceExist(*getResourceId) {
@@ -105,22 +80,10 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 	if getResource.amountAvailable, _ =strconv.Atoi(resources[resourceQuantity]); !isIntPositive(getResource.amountAvailable) {
 		errResult = "Invalid given resource quantity!"
 	}
+	return
 }
 
 // Function gets an int and returns whether it's a positive int.
-func isIntPositive(intToCheck int) bool{
-	if intToCheck <= 0 {
-		return false
-	}
-	return true
-}
-
-func intInput(str,errStr string, inputTo *int,){
-	fmt.Print(str)
-	if _,err := fmt.Scanln(inputTo); err != nil {
-		log.Fatalln(errStr)
-	}
-}
 
 func PrintResources() {
 	for id,resource := range resourcesList{

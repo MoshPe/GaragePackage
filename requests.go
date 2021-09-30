@@ -16,6 +16,7 @@ type Request struct {
 	servicesId []int
 }
 
+// The key is the car id
 var requestList = make(map[int] Request)
 
 func GetRequests() *map[int] Request{
@@ -23,34 +24,16 @@ func GetRequests() *map[int] Request{
 }
 
 func ImportRequests(){
-	var getImportSelect int8
-	fmt.Printf("1 - import requests from a txt file\n" +
-		"2 - add a service\n->:")
-	if _,err := fmt.Scanln(&getImportSelect); err != nil {
-		log.Fatalln("Wrong import selection input")
-	}
+	getImportSelect := getImportSelection("requests")
 	switch getImportSelect {
-	case 1:
-		var getFileName string
-		fmt.Printf("Please enter the file.txt name ->: ")
-		if _,err := fmt.Scanln(&getFileName); err != nil {
-			log.Fatalln("Wrong import file name")
-		}
-		importServicesViaTxt(getFileName)
-	case 2:
+	case importViaTextFile:
+		importServicesViaTxt(getFileName())
+	case addResourceManually:
 		var getService Service
 		var getServiceId int
 		for ok := true; ok ;{
 			intInput("Please enter the service id ->: ","Wrong input service id",&getServiceId)
 			ok = isServiceExist(getServiceId)
-		}
-		//reading a full line
-		scanner := bufio.NewReader(os.Stdin)
-		fmt.Printf("Please enter the service name ->: ")
-		if line, err := scanner.ReadString('\n'); err != nil {
-			log.Fatalln("Wrong input service name")
-		}else {
-			getService.name = strings.TrimRight(line, "\n")
 		}
 		fmt.Printf("Please enter the service work time in Hrs ->: ")
 		if _,err := fmt.Scanln(&getService.timeHr); err != nil {
@@ -77,7 +60,7 @@ func ImportRequests(){
 	}
 }
 
-func importServicesViaTxt(fileName string) {
+func importRequestsViaTxt(fileName string) {
 	importFile, err := os.Open(fileName + ".txt") // For read access.
 	if err != nil {
 		log.Fatal(err)
@@ -122,16 +105,18 @@ func importServicesViaTxt(fileName string) {
 	}
 }
 
-func isServiceExist(serviceId int) bool{
-	if _, ok := serviceList[serviceId]; ok{
+func isRequestExist(requestId int) bool{
+	if _, ok := requestList[requestId]; ok{
 		return true
 	}
 	return false
 }
 
+/*
 func PrintServices() {
 	for id,service := range serviceList{
 		fmt.Printf("ID: %d, service name: %s, service work time %f ,resource amount needed: %d, resources id's",id,service.name,service.timeHr,service.amountResourcesNeeded)
 		fmt.Println(service.resourcesIdList)
 	}
 }
+ */
