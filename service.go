@@ -9,44 +9,42 @@ import (
 	"strings"
 )
 
-var serviceList = make(map[int] Service)
+var serviceList = make(map[int]Service)
 
-
-
-func GetServices() *map[int] Service{
+func GetServices() *map[int]Service {
 	return &serviceList
 }
 
-func ImportServices(){
+func ImportServices() {
 	getImportSelect := getImportSelection("services")
 	switch getImportSelect {
 	case importViaTextFile:
 		importServicesViaTxt(getFileName())
-	case addResourceManually:
+	case addManually:
 		var getService Service
 		var getServiceId int
-		for ok := true; ok ;{
-			intInput("Please enter the service id ->: ","Wrong input service id",&getServiceId)
+		for ok := true; ok; {
+			intInput("Please enter the service id ->: ", "Wrong input service id", &getServiceId)
 			ok = isServiceExist(getServiceId)
 		}
 		getService.name = inputName("service")
 
 		intInput("Please enter the service work time in Hrs ->: ",
-			"Wrong input service work time",&getService.timeHr)
+			"Wrong input service work time", &getService.timeHr)
 
 		intInput("Please enter the amount of resources ->:",
-			"Wrong input resource's quantity",&getService.amountResourcesNeeded)
+			"Wrong input resource's quantity", &getService.amountResourcesNeeded)
 
 		var resourceId int
 		fmt.Println("Please enter the resources id's ->:")
-		for i := 0;i < getService.amountResourcesNeeded;i++ {
-			intInput("","couldn't input resource's id",&resourceId)
-			if !isResourceExist(resourceId){
-				fmt.Println("Resource ",resourceId," doesnt exist, Please try again!")
+		for i := 0; i < getService.amountResourcesNeeded; i++ {
+			intInput("", "couldn't input resource's id", &resourceId)
+			if !isResourceExist(resourceId) {
+				fmt.Println("Resource ", resourceId, " doesnt exist, Please try again!")
 				i--
 				continue
 			}
-			getService.resourcesIdList = append(getService.resourcesIdList,resourceId)
+			getService.resourcesIdList = append(getService.resourcesIdList, resourceId)
 		}
 		serviceList[getServiceId] = getService
 	}
@@ -63,58 +61,56 @@ func importServicesViaTxt(fileName string) {
 	var getService Service
 	var getServiceId int
 	const serviceWorkTime = 2
-	for scanner.Scan(){
+	for scanner.Scan() {
 		resources := strings.Split(scanner.Text(), "\t")
-		if errResult := checkServiceValidation(resources,&getServiceId,&getService); errResult != ""{
+		if errResult := checkServiceValidation(resources, &getServiceId, &getService); errResult != "" {
 			fmt.Println(errResult)
 		}
 		//Input the service's resources as a list
 		for i := 0; i < getService.amountResourcesNeeded; i++ {
-			serviceId,_ := strconv.Atoi(resources[i+4])
-			getService.resourcesIdList = append(getService.resourcesIdList,serviceId)
+			serviceId, _ := strconv.Atoi(resources[i+4])
+			getService.resourcesIdList = append(getService.resourcesIdList, serviceId)
 		}
 		//Update the map with the new service
 		serviceList[getServiceId] = getService
 	}
 }
 
-func checkServiceValidation(resources []string, getServiceId *int, getService *Service) (errResult string){
+func checkServiceValidation(resources []string, getServiceId *int, getService *Service) (errResult string) {
 	const (
-		serviceId = 0
-		serviceName = 1
-		serviceWorkTime = 2
+		serviceId               = 0
+		serviceName             = 1
+		serviceWorkTime         = 2
 		serviceResourceQuantity = 3
 	)
 	if getService.name = resources[serviceName]; !isProductNameValid(getService.name) {
-		errResult = "product name -"+ resources[serviceName] +" need to contain only letters a-z , A-Z"
+		errResult = "product name -" + resources[serviceName] + " need to contain only letters a-z , A-Z"
 	}
-	if *getServiceId,_ = strconv.Atoi(resources[serviceId]); !isIntPositive(*getServiceId) {
+	if *getServiceId, _ = strconv.Atoi(resources[serviceId]); !isIntPositive(*getServiceId) {
 		errResult = "Invalid given resource id!"
 	}
 	if isResourceExist(*getServiceId) {
 		errResult = "Invalid given resource id!"
 	}
-	if getService.timeHr, _ =strconv.Atoi(resources[serviceWorkTime]);
-		!isIntPositive(getService.timeHr) {
+	if getService.timeHr, _ = strconv.Atoi(resources[serviceWorkTime]); !isIntPositive(getService.timeHr) {
 		errResult = "Invalid given service work time!"
 	}
-	if getService.amountResourcesNeeded, _ =strconv.Atoi(resources[serviceResourceQuantity]);
-		!isIntPositive(getService.amountResourcesNeeded) {
+	if getService.amountResourcesNeeded, _ = strconv.Atoi(resources[serviceResourceQuantity]); !isIntPositive(getService.amountResourcesNeeded) {
 		errResult = "Invalid given resource quantity!"
 	}
 	return
 }
 
-func isServiceExist(serviceId int) bool{
-	if _, ok := serviceList[serviceId]; ok{
+func isServiceExist(serviceId int) bool {
+	if _, ok := serviceList[serviceId]; ok {
 		return true
 	}
 	return false
 }
 
 func PrintServices() {
-	for id,service := range serviceList{
-		fmt.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's",id,service.name,service.timeHr,service.amountResourcesNeeded)
+	for id, service := range serviceList {
+		fmt.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's", id, service.name, service.timeHr, service.amountResourcesNeeded)
 		fmt.Println(service.resourcesIdList)
 	}
 }
