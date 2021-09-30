@@ -108,6 +108,10 @@ func isServiceExist(serviceId int) bool {
 	return false
 }
 
+func getServiceById(serviceId int) Service {
+	return serviceList[serviceId]
+}
+
 func PrintServices() {
 	for id, service := range serviceList {
 		fmt.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's", id, service.name, service.timeHr, service.amountResourcesNeeded)

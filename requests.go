@@ -65,42 +65,43 @@ func importRequestsViaTxt(fileName string) {
 		log.Fatal(err)
 	}
 	//close the file when the function finishes
-	defer func(importFile *os.File) {
-		err := importFile.Close()
-		if err != nil {
-			log.Fatalln("Error in closing the import file")
-		}
-	}(importFile)
+	defer closeFile(importFile)
 	scanner := bufio.NewScanner(importFile)
+	var getRequest Request
+	var getRequestId int
 	for scanner.Scan() {
-		var getService Service
-		var getServiceId int
 		resources := strings.Split(scanner.Text(), "\t")
-		getService.name = resources[1]
-		if !isProductNameValid(getService.name) {
-			fmt.Println("product name -" + resources[1] + " need to contain only letters a-z , A-Z")
-			continue
+		if errResult := checkRequestValidation(resources, &getRequestId, &getRequest); errResult != "" {
+			fmt.Println(errResult)
 		}
-		if getServiceId, _ = strconv.Atoi(resources[0]); isServiceExist(getServiceId) {
-			fmt.Println("There is already a resource with the same id", getServiceId)
-			continue
+		for i := 0; i < getRequest.amountOfServices; i++ {
+			serviceId, _ := strconv.Atoi(resources[i+3])
+			getRequest.servicesId = append(getRequest.servicesId, serviceId)
 		}
-
-		if !isIntPositive(getServiceId) {
-			fmt.Println("Invalid given service id!")
-			continue
-		}
-		getService.amountResourcesNeeded, _ = strconv.Atoi(resources[3])
-		if !isIntPositive(getService.amountResourcesNeeded) {
-			fmt.Println("Invalid given service's resources amount!")
-			continue
-		}
-		for i := 0; i < getService.amountResourcesNeeded; i++ {
-			serviceId, _ := strconv.Atoi(resources[i+4])
-			getService.resourcesIdList = append(getService.resourcesIdList, serviceId)
-		}
-		serviceList[getServiceId] = getService
+		requestList[getRequestId] = getRequest
 	}
+}
+
+func checkRequestValidation(resources []string, getRequestId *int, getRequest *Request) (errResult string) {
+	const (
+		requestId               = 0
+		requestArrivalTime      = 1
+		requestResourceQuantity = 2
+	)
+	var err error
+	if getRequest.timeArrival, err = time.Parse("15:04", resources[requestArrivalTime]); err != nil {
+		errResult = "request arrival time -" + resources[requestArrivalTime] + " need to be as format hh:mm"
+	}
+	if *getRequestId, _ = strconv.Atoi(resources[requestId]); !isIntPositive(*getRequestId) {
+		errResult = "Invalid given request id!"
+	}
+	if isResourceExist(*getRequestId) {
+		errResult = "Invalid given resource id!"
+	}
+	if getRequest.amountOfServices, _ = strconv.Atoi(resources[requestResourceQuantity]); !isIntPositive(getRequest.amountOfServices) {
+		errResult = "Invalid given resource quantity!"
+	}
+	return
 }
 
 func isRequestExist(requestId int) bool {
