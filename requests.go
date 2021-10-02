@@ -111,11 +111,10 @@ func isRequestExist(requestId int) bool {
 	return false
 }
 
-/*
-func PrintServices() {
-	for id,service := range serviceList{
-		fmt.Printf("ID: %d, service name: %s, service work time %f ,resource amount needed: %d, resources id's",id,service.name,service.timeHr,service.amountResourcesNeeded)
-		fmt.Println(service.resourcesIdList)
+
+func PrintRequests() {
+	for id,request := range requestList{
+		fmt.Printf("ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's",id,request.arrivalTime.Format("15:04"),request.amountOfServices)
+		fmt.Println(request.servicesId)
 	}
 }
-*/
