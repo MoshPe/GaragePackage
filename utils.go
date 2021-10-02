@@ -52,7 +52,7 @@ func inputName(importType string) string {
 }
 
 func isIntPositive(intToCheck int) bool {
-	if intToCheck <= 0 {
+	if intToCheck < 0 {
 		return false
 	}
 	return true
