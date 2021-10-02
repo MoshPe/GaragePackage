@@ -20,6 +20,7 @@ func closeFile(importFile *os.File) {
 		log.Fatalln("Error in closing the import file")
 	}
 }
+
 func getImportSelection(typeToImport string) int8 {
 	var getImportSelect int8
 	fmt.Printf("1 - import %s from a txt file\n"+
@@ -29,6 +30,7 @@ func getImportSelection(typeToImport string) int8 {
 	}
 	return getImportSelect
 }
+
 func getFileName() string {
 	var getFileName string
 	fmt.Printf("Please enter the file.txt name ->: ")
@@ -37,6 +39,7 @@ func getFileName() string {
 	}
 	return getFileName
 }
+
 func inputName(importType string) string {
 	//reading a full line
 	var nameToInput string
