@@ -19,7 +19,7 @@ func ImportResources() {
 	getImportSelect := getImportSelection("resources")
 	switch getImportSelect {
 	case importViaTextFile:
-		importServicesViaTxt(getFileName())
+		importResourcesViaTxt(getFileName())
 	case addManually:
 		var getResource Resource
 		var getResourceId int
@@ -36,7 +36,7 @@ func ImportResources() {
 	}
 }
 
-func importViaTxt(fileName string) {
+func importResourcesViaTxt(fileName string) {
 	importFile, err := os.Open(fileName + ".txt") // For read access.
 	if err != nil {
 		log.Fatal(err)
