@@ -11,11 +11,10 @@ import (
 )
 
 type Request struct {
-	timeArrival      time.Time
+	arrivalTime      time.Time
 	amountOfServices int
 	servicesId       []int
 }
-
 // The key is the car id
 var requestList = make(map[int]Request)
 
@@ -31,16 +30,17 @@ func ImportRequests() {
 	case addManually:
 		var getRequest Request
 		var getRequestId int
+		var getArrivalTime string
 		for ok := true; ok; {
 			intInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
 			ok = isServiceExist(getRequestId)
 		}
 
 		fmt.Printf("Please enter the car time of arrival (hh:mm) ->: ")
-		if _, err := fmt.Scanln(&getRequest.timeArrival); err != nil {
+		if _, err := fmt.Scanln(&getArrivalTime); err != nil {
 			log.Fatalln("Wrong input arrival time")
 		}
-
+		getRequest.arrivalTime,_ = time.Parse("15:04",getArrivalTime)
 		intInput("Please enter the amount of services ->:",
 			"Wrong input service's quantity", &getRequest.amountOfServices)
 
@@ -89,14 +89,14 @@ func checkRequestValidation(resources []string, getRequestId *int, getRequest *R
 		requestResourceQuantity = 2
 	)
 	var err error
-	if getRequest.timeArrival, err = time.Parse("15:04", resources[requestArrivalTime]); err != nil {
-		errResult = "request arrival time -" + resources[requestArrivalTime] + " need to be as format hh:mm"
-	}
 	if *getRequestId, _ = strconv.Atoi(resources[requestId]); !isIntPositive(*getRequestId) {
 		errResult = "Invalid given request id!"
 	}
-	if isResourceExist(*getRequestId) {
+	if isRequestExist(*getRequestId) {
 		errResult = "Invalid given resource id!"
+	}
+	if getRequest.arrivalTime, err = time.Parse("15:04", resources[requestArrivalTime]); err != nil {
+		errResult = "request arrival time -" + resources[requestArrivalTime] + " need to be as format hh:mm"
 	}
 	if getRequest.amountOfServices, _ = strconv.Atoi(resources[requestResourceQuantity]); !isIntPositive(getRequest.amountOfServices) {
 		errResult = "Invalid given resource quantity!"
