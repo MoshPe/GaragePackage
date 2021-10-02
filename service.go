@@ -73,6 +73,7 @@ func importServicesViaTxt(fileName string) {
 		}
 		//Update the map with the new service
 		serviceList[getServiceId] = getService
+		getService.resourcesIdList = nil
 	}
 }
 
@@ -84,19 +85,20 @@ func checkServiceValidation(resources []string, getServiceId *int, getService *S
 		serviceResourceQuantity = 3
 	)
 	if *getServiceId, _ = strconv.Atoi(resources[serviceId]); !isIntPositive(*getServiceId) {
+		errResult = "Invalid given service id!"
+	}
+	if isServiceExist(*getServiceId) {
 		errResult = "Invalid given resource id!"
 	}
 	if getService.name = resources[serviceName]; !isProductNameValid(getService.name) {
 		errResult = "product name -" + resources[serviceName] + " need to contain only letters a-z , A-Z"
 	}
-	if isServiceExist(*getServiceId) {
-		errResult = "Invalid given resource id!"
-	}
+
 	if getService.timeHr, _ = strconv.Atoi(resources[serviceWorkTime]); !isIntPositive(getService.timeHr) {
 		errResult = "Invalid given service work time!"
 	}
 	if getService.amountResourcesNeeded, _ = strconv.Atoi(resources[serviceResourceQuantity]); !isIntPositive(getService.amountResourcesNeeded) {
-		errResult = "Invalid given resource quantity!"
+		errResult = "Invalid given service's resource quantity!"
 	}
 	return
 }
