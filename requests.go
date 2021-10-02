@@ -79,6 +79,7 @@ func importRequestsViaTxt(fileName string) {
 			getRequest.servicesId = append(getRequest.servicesId, serviceId)
 		}
 		requestList[getRequestId] = getRequest
+		getRequest.servicesId = nil
 	}
 }
 
