@@ -26,7 +26,7 @@ func ImportRequests() {
 	getImportSelect := getImportSelection("requests")
 	switch getImportSelect {
 	case importViaTextFile:
-		importServicesViaTxt(getFileName())
+		importRequestsViaTxt(getFileName())
 	case addManually:
 		var getRequest Request
 		var getRequestId int
