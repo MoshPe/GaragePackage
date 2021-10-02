@@ -83,13 +83,13 @@ func checkServiceValidation(resources []string, getServiceId *int, getService *S
 		serviceWorkTime         = 2
 		serviceResourceQuantity = 3
 	)
-	if getService.name = resources[serviceName]; !isProductNameValid(getService.name) {
-		errResult = "product name -" + resources[serviceName] + " need to contain only letters a-z , A-Z"
-	}
 	if *getServiceId, _ = strconv.Atoi(resources[serviceId]); !isIntPositive(*getServiceId) {
 		errResult = "Invalid given resource id!"
 	}
-	if isResourceExist(*getServiceId) {
+	if getService.name = resources[serviceName]; !isProductNameValid(getService.name) {
+		errResult = "product name -" + resources[serviceName] + " need to contain only letters a-z , A-Z"
+	}
+	if isServiceExist(*getServiceId) {
 		errResult = "Invalid given resource id!"
 	}
 	if getService.timeHr, _ = strconv.Atoi(resources[serviceWorkTime]); !isIntPositive(getService.timeHr) {
