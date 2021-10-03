@@ -11,13 +11,12 @@ import (
 
 var serviceList = make(map[int]Service)
 
-func GetServices() *map[int]Service {
-	return &serviceList
+func GetServices() map[int]Service {
+	return serviceList
 }
 
 func ImportServices() {
-	resourceList := GetResources()
-	if len(*resourceList) == 0{
+	if len(GetResources()) == 0{
 		fmt.Println("Resources are needed to be imported or created first!!")
 		return
 	}

@@ -11,8 +11,8 @@ import (
 
 var resourcesList = make(map[int]Resource)
 
-func GetResources() *map[int]Resource {
-	return &resourcesList
+func GetResources() map[int]Resource {
+	return resourcesList
 }
 
 func ImportResources() {

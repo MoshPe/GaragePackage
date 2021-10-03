@@ -13,13 +13,12 @@ import (
 // The key is the car id
 var requestList = make(map[int]Request)
 
-func GetRequests() *map[int]Request {
-	return &requestList
+func GetRequests() map[int]Request {
+	return requestList
 }
 
 func ImportRequests() {
-	serviceList := GetServices()
-	if len(*serviceList) == 0 {
+	if len(GetServices()) == 0 {
 		fmt.Println("Services are needed to be imported or created first!!")
 		return
 	}
