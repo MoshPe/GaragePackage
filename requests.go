@@ -73,8 +73,8 @@ func importRequestsViaTxt(fileName string) {
 		if errResult := checkRequestValidation(resources, &getRequestId, &getRequest); errResult != "" {
 			fmt.Println(errResult)
 		}
-		for i := 0; i < getRequest.AmountOfServices; i++ {
-			serviceId, _ := strconv.Atoi(resources[i+3])
+		for i := 3; i < len(resources); i++ {
+			serviceId, _ := strconv.Atoi(resources[i])
 			if !isServiceExist(serviceId) {
 				fmt.Println("Service ", serviceId, " doesnt exist, Please fix the file!. service id: ",getRequestId)
 				getRequest.ServicesIdList = nil
