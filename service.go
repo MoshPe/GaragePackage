@@ -55,6 +55,7 @@ func importServicesViaTxt(fileName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	//close the file when the function finishes
 	defer closeFile(importFile)
 	scanner := bufio.NewScanner(importFile)
@@ -66,11 +67,18 @@ func importServicesViaTxt(fileName string) {
 		if errResult := checkServiceValidation(resources, &getServiceId, &getService); errResult != "" {
 			fmt.Println(errResult)
 		}
+
 		//Input the service's resources as a list
 		for i := 0; i < getService.amountResourcesNeeded; i++ {
-			serviceId, _ := strconv.Atoi(resources[i+4])
-			getService.resourcesIdList = append(getService.resourcesIdList, serviceId)
+			resourceId, _ := strconv.Atoi(resources[i+4])
+			if !isResourceExist(resourceId) {
+				fmt.Println("Resource ", resourceId, " doesnt exist, Please try again!")
+				i--
+				continue
+			}
+			getService.resourcesIdList = append(getService.resourcesIdList, resourceId)
 		}
+
 		//Update the map with the new service
 		serviceList[getServiceId] = getService
 		getService.resourcesIdList = nil

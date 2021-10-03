@@ -76,6 +76,11 @@ func importRequestsViaTxt(fileName string) {
 		}
 		for i := 0; i < getRequest.amountOfServices; i++ {
 			serviceId, _ := strconv.Atoi(resources[i+3])
+			if !isServiceExist(serviceId) {
+				fmt.Println("Service ", serviceId, " doesnt exist, Please try again!")
+				i--
+				continue
+			}
 			getRequest.servicesId = append(getRequest.servicesId, serviceId)
 		}
 		requestList[getRequestId] = getRequest
