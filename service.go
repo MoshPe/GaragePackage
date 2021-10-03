@@ -124,7 +124,7 @@ func isServiceExist(serviceId int) bool {
 	return false
 }
 
-func getServiceById(serviceId int) Service {
+func GetServiceById(serviceId int) Service {
 	return serviceList[serviceId]
 }
 
