@@ -123,11 +123,10 @@ func isServiceExist(serviceId int) bool {
 	}
 	return false
 }
-/*
+
 func getServiceById(serviceId int) Service {
 	return serviceList[serviceId]
 }
- */
 
 func PrintServices() {
 	for id, service := range serviceList {
