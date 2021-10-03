@@ -16,7 +16,8 @@ func GetServices() *map[int]Service {
 }
 
 func ImportServices() {
-	if resources := GetResources(); *resources == nil {
+	resources := GetResources()
+	if *resources == nil {
 		log.Fatalln("Resources are needed to be imported or created first!!")
 		return
 	}
