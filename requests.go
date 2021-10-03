@@ -13,7 +13,7 @@ import (
 type Request struct {
 	arrivalTime      time.Time
 	amountOfServices int
-	servicesId       []int
+	servicesIdList       []int
 }
 // The key is the car id
 var requestList = make(map[int]Request)
@@ -23,6 +23,10 @@ func GetRequests() *map[int]Request {
 }
 
 func ImportRequests() {
+	if GetServices() == nil {
+		log.Fatalln("Services are needed to be imported or created first!!")
+		return
+	}
 	getImportSelect := getImportSelection("requests")
 	switch getImportSelect {
 	case importViaTextFile:
@@ -53,7 +57,7 @@ func ImportRequests() {
 				i--
 				continue
 			}
-			getRequest.servicesId = append(getRequest.servicesId, serviceId)
+			getRequest.servicesIdList = append(getRequest.servicesIdList, serviceId)
 		}
 		requestList[getRequestId] = getRequest
 	}
@@ -77,14 +81,14 @@ func importRequestsViaTxt(fileName string) {
 		for i := 0; i < getRequest.amountOfServices; i++ {
 			serviceId, _ := strconv.Atoi(resources[i+3])
 			if !isServiceExist(serviceId) {
-				fmt.Println("Service ", serviceId, " doesnt exist, Please try again!")
-				i--
-				continue
+				fmt.Println("Service ", serviceId, " doesnt exist, Please fix the file!. service id: ",getRequestId)
+				getRequest.servicesIdList = nil
+				break
 			}
-			getRequest.servicesId = append(getRequest.servicesId, serviceId)
+			getRequest.servicesIdList = append(getRequest.servicesIdList, serviceId)
 		}
 		requestList[getRequestId] = getRequest
-		getRequest.servicesId = nil
+		getRequest.servicesIdList = nil
 	}
 }
 
@@ -121,6 +125,6 @@ func isRequestExist(requestId int) bool {
 func PrintRequests() {
 	for id,request := range requestList{
 		fmt.Printf("ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's",id,request.arrivalTime.Format("15:04"),request.amountOfServices)
-		fmt.Println(request.servicesId)
+		fmt.Println(request.servicesIdList)
 	}
 }

@@ -16,6 +16,10 @@ func GetServices() *map[int]Service {
 }
 
 func ImportServices() {
+	if GetResources() == nil {
+		log.Fatalln("Resources are needed to be imported or created first!!")
+		return
+	}
 	getImportSelect := getImportSelection("services")
 	switch getImportSelect {
 	case importViaTextFile:
@@ -72,9 +76,9 @@ func importServicesViaTxt(fileName string) {
 		for i := 0; i < getService.amountResourcesNeeded; i++ {
 			resourceId, _ := strconv.Atoi(resources[i+4])
 			if !isResourceExist(resourceId) {
-				fmt.Println("Resource ", resourceId, " doesnt exist, Please try again!")
-				i--
-				continue
+				fmt.Println("Resource ", resourceId, " doesnt exist, Please fix the file!. service id: ",getServiceId)
+				getService.resourcesIdList = nil
+				break
 			}
 			getService.resourcesIdList = append(getService.resourcesIdList, resourceId)
 		}
