@@ -27,12 +27,12 @@ func ImportResources() {
 			intInput("Please enter the resource id ->: ", "Wrong input resource id", &getResourceId)
 			ok = isResourceExist(getResourceId)
 		}
-		getResource.name = inputName("resource")
-		intInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.amountAvailable)
+		getResource.Name = inputName("resource")
+		intInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.AmountAvailable)
 		resourcesList[getResourceId] = getResource
 	}
 	for _, resource := range resourcesList {
-		resource.isTaken = make([]bool, resource.amountAvailable)
+		resource.IsTaken = make([]bool, resource.AmountAvailable)
 	}
 }
 
@@ -68,7 +68,7 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 		resourceName     = 1
 		resourceQuantity = 2
 	)
-	if getResource.name = resources[resourceName]; !isProductNameValid(getResource.name) {
+	if getResource.Name = resources[resourceName]; !isProductNameValid(getResource.Name) {
 		errResult = "product name -" + resources[resourceName] + " need to contain only letters a-z , A-Z"
 	}
 	if *getResourceId, _ = strconv.Atoi(resources[resourceId]); !isIntPositive(*getResourceId) {
@@ -77,7 +77,7 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 	if isResourceExist(*getResourceId) {
 		errResult = "Invalid given resource id!"
 	}
-	if getResource.amountAvailable, _ = strconv.Atoi(resources[resourceQuantity]); !isIntPositive(getResource.amountAvailable) {
+	if getResource.AmountAvailable, _ = strconv.Atoi(resources[resourceQuantity]); !isIntPositive(getResource.AmountAvailable) {
 		errResult = "Invalid given resource quantity!"
 	}
 	return
@@ -87,6 +87,6 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 
 func PrintResources() {
 	for id, resource := range resourcesList {
-		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.name, resource.amountAvailable)
+		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
 	}
 }

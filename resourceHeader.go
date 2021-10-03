@@ -1,7 +1,7 @@
 package Garage
 
 type Resource struct {
-	name string
-	amountAvailable int
-	isTaken []bool
+	Name string
+	AmountAvailable int
+	IsTaken []bool
 }
