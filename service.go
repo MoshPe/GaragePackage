@@ -18,9 +18,10 @@ func GetServices() *map[int]Service {
 func ImportServices() {
 	resourceList := GetResources()
 	if len(*resourceList) == 0{
-		log.Fatalln("Resources are needed to be imported or created first!!")
+		fmt.Println("Resources are needed to be imported or created first!!")
 		return
 	}
+
 	getImportSelect := getImportSelection("services")
 	switch getImportSelect {
 	case importViaTextFile:
@@ -122,10 +123,11 @@ func isServiceExist(serviceId int) bool {
 	}
 	return false
 }
-
+/*
 func getServiceById(serviceId int) Service {
 	return serviceList[serviceId]
 }
+ */
 
 func PrintServices() {
 	for id, service := range serviceList {

@@ -25,7 +25,7 @@ func GetRequests() *map[int]Request {
 func ImportRequests() {
 	serviceList := GetServices()
 	if len(*serviceList) == 0 {
-		log.Fatalln("Services are needed to be imported or created first!!")
+		fmt.Println("Services are needed to be imported or created first!!")
 		return
 	}
 	getImportSelect := getImportSelection("requests")
