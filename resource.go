@@ -90,3 +90,7 @@ func PrintResources() {
 		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
 	}
 }
+
+func GetResourceById(resourceId int) Resource{
+	return resourcesList[resourceId]
+}

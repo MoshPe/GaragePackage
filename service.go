@@ -109,10 +109,10 @@ func checkServiceValidation(resources []string, getServiceId *int, getService *S
 	}
 
 	if getService.TimeHr, _ = strconv.Atoi(resources[serviceWorkTime]); !isIntPositive(getService.TimeHr) {
-		errResult = "Invalid given service work time! - service id: " + string(*getServiceId)
+		errResult = "Invalid given service work time! - service id: " + strconv.Itoa(*getServiceId)
 	}
 	if getService.AmountResourcesNeeded, _ = strconv.Atoi(resources[serviceResourceQuantity]); !isIntPositive(getService.AmountResourcesNeeded) {
-		errResult = "Invalid given service's resource quantity!" + string(*getServiceId)
+		errResult = "Invalid given service's resource quantity!" + strconv.Itoa(*getServiceId)
 	}
 	return
 }
