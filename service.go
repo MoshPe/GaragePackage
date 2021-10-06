@@ -149,7 +149,9 @@ func printServiceResourceList(service Service, fileToPrint *bufio.Writer){
 	fmt.Fprintf(fileToPrint,"]")
 }
 
-func PrintServiceNeededResources(serviceId int){
+func PrintServiceNeededResources(serviceId int ,fileToPrint *bufio.Writer){
 	service := serviceList[serviceId]
-	fmt.Println("service name",service.Name," resources->: ",service.ResourcesIdList)
+	fmt.Fprintf(fileToPrint,"service name %s resources->: [",service.Name)
+	printServiceResourceList(service,fileToPrint)
+	fmt.Println()
 }
