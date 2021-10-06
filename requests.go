@@ -34,8 +34,8 @@ func ImportRequests() {
 	switch getImportSelect {
 	case importViaTextFile:
 		//TODO
-		//importResourcesViaTxt(getFileName())
-		importResourcesViaTxt(inputRequests)
+		//importRequestsViaTxt(getFileName())
+		importRequestsViaTxt(inputRequests)
 	case addManually:
 		var getRequest Request
 		var getRequestId int
