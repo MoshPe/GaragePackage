@@ -31,11 +31,11 @@ func ImportResources() {
 		var getResource Resource
 		var getResourceId int
 		for ok := true; ok; {
-			intInput("Please enter the resource id ->: ", "Wrong input resource id", &getResourceId)
+			IntInput("Please enter the resource id ->: ", "Wrong input resource id", &getResourceId)
 			ok = isResourceExist(getResourceId)
 		}
 		getResource.Name = inputName("resource")
-		intInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.AmountAvailable)
+		IntInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.AmountAvailable)
 		resourcesList[getResourceId] = getResource
 	}
 	for _, resource := range resourcesList {

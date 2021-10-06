@@ -41,7 +41,7 @@ func ImportRequests() {
 		var getRequestId int
 		var getArrivalTime string
 		for ok := true; ok; {
-			intInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
+			IntInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
 			ok = isServiceExist(getRequestId)
 		}
 
@@ -50,13 +50,13 @@ func ImportRequests() {
 			log.Fatalln("Wrong input arrival time")
 		}
 		getRequest.ArrivalTime,_ = time.Parse("15:04",getArrivalTime)
-		intInput("Please enter the amount of services ->:",
+		IntInput("Please enter the amount of services ->:",
 			"Wrong input service's quantity", &getRequest.AmountOfServices)
 
 		var serviceId int
 		fmt.Println("Please enter the services id's ->:")
 		for i := 0; i < getRequest.AmountOfServices; i++ {
-			intInput("", "couldn't input service's id", &serviceId)
+			IntInput("", "couldn't input service's id", &serviceId)
 			if !isServiceExist(serviceId) {
 				fmt.Println("Service ", serviceId, " doesnt exist, Please try again!")
 				i--
@@ -174,7 +174,7 @@ func ImportRequests() {
 		var getRequestId int
 		var getArrivalTime string
 		for ok := true; ok; {
-			intInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
+			IntInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
 			ok = isServiceExist(getRequestId)
 		}
 
@@ -183,13 +183,13 @@ func ImportRequests() {
 			log.Fatalln("Wrong input arrival time")
 		}
 		getRequest.ArrivalTime,_ = time.Parse("15:04",getArrivalTime)
-		intInput("Please enter the amount of services ->:",
+		IntInput("Please enter the amount of services ->:",
 			"Wrong input service's quantity", &getRequest.AmountOfServices)
 
 		var serviceId int
 		fmt.Println("Please enter the services id's ->:")
 		for i := 0; i < getRequest.AmountOfServices; i++ {
-			intInput("", "couldn't input service's id", &serviceId)
+			IntInput("", "couldn't input service's id", &serviceId)
 			if !isServiceExist(serviceId) {
 				fmt.Println("Service ", serviceId, " doesnt exist, Please try again!")
 				i--

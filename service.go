@@ -36,21 +36,21 @@ func ImportServices() {
 		var getService Service
 		var getServiceId int
 		for ok := true; ok; {
-			intInput("Please enter the service id ->: ", "Wrong input service id", &getServiceId)
+			IntInput("Please enter the service id ->: ", "Wrong input service id", &getServiceId)
 			ok = isServiceExist(getServiceId)
 		}
 		getService.Name = inputName("service")
 
-		intInput("Please enter the service work time in Hrs ->: ",
+		IntInput("Please enter the service work time in Hrs ->: ",
 			"Wrong input service work time", &getService.TimeHr)
 
-		intInput("Please enter the amount of resources ->:",
+		IntInput("Please enter the amount of resources ->:",
 			"Wrong input resource's quantity", &getService.AmountResourcesNeeded)
 
 		var resourceId int
 		fmt.Println("Please enter the resources id's ->:")
 		for i := 0; i < getService.AmountResourcesNeeded; i++ {
-			intInput("", "couldn't input resource's id", &resourceId)
+			IntInput("", "couldn't input resource's id", &resourceId)
 			if !isResourceExist(resourceId) {
 				fmt.Println("Resource ", resourceId, " doesnt exist, Please try again!")
 				i--
