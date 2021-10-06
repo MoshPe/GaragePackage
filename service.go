@@ -140,3 +140,8 @@ func PrintServices() {
 		fmt.Println(service.ResourcesIdList)
 	}
 }
+
+func PrintServiceNeededResources(serviceId int){
+	service := serviceList[serviceId]
+	fmt.Println("service resources->: ",service.ResourcesIdList)
+}
