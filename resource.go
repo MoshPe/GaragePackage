@@ -92,13 +92,13 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 
 // Function gets an int and returns whether it's a positive int.
 
-func PrintResources(fileToPrint *os.File) {
+func PrintResources(fileToPrint *bufio.Writer) {
 	for id, resource := range resourcesList {
 		fmt.Fprintf(fileToPrint,"ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
 	}
 }
 
-func PrintResourcesShort(fileToPrint *os.File){
+func PrintResourcesShort(fileToPrint *bufio.Writer){
 	for id, resource := range resourcesList {
 		fmt.Fprintf(fileToPrint,"ID: %d - quantity: %d\n", id, resource.AmountAvailable)
 	}

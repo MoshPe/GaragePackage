@@ -125,7 +125,7 @@ func isRequestExist(requestId int) bool {
 }
 
 
-func PrintRequests(fileToPrint *os.File) {
+func PrintRequests(fileToPrint *bufio.Writer) {
 	requestList.Range(func(key, value interface{}) bool {
 		requestId := key.(int)
 		request := value.(Request)
@@ -136,7 +136,7 @@ func PrintRequests(fileToPrint *os.File) {
 	})
 }
 
-func printRequestServicesList(request Request, fileToPrint *os.File){
+func printRequestServicesList(request Request, fileToPrint *bufio.Writer){
 	for _, serviceId := range request.ServicesIdList{
 		fmt.Fprintf(fileToPrint,"%d ",serviceId)
 	}
