@@ -153,5 +153,5 @@ func PrintServiceNeededResources(serviceId int ,fileToPrint *bufio.Writer){
 	service := serviceList[serviceId]
 	fmt.Fprintf(fileToPrint,"service name %s resources->: [",service.Name)
 	printServiceResourceList(service,fileToPrint)
-	fmt.Println()
+	fmt.Fprintf(fileToPrint,"\n")
 }

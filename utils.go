@@ -61,7 +61,7 @@ func isIntPositive(intToCheck int) bool {
 	return true
 }
 
-func intInput(str, errStr string, inputTo *int) {
+func IntInput(str, errStr string, inputTo *int) {
 	fmt.Println(str)
 	if _, err := fmt.Scanf("%d",inputTo); err != nil {
 		log.Fatalln(errStr)
