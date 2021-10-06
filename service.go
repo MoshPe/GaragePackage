@@ -143,5 +143,5 @@ func PrintServices() {
 
 func PrintServiceNeededResources(serviceId int){
 	service := serviceList[serviceId]
-	fmt.Println("service resources->: ",service.ResourcesIdList)
+	fmt.Println("service name",service.Name," resources->: ",service.ResourcesIdList)
 }
