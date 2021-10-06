@@ -30,8 +30,8 @@ func ImportServices() {
 	switch getImportSelect {
 	case importViaTextFile:
 		//TODO
-		//importResourcesViaTxt(getFileName())
-		importResourcesViaTxt(inputServices)
+		//importServicesViaTxt(getFileName())
+		importServicesViaTxt(inputServices)
 	case addManually:
 		var getService Service
 		var getServiceId int
