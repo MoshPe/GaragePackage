@@ -11,6 +11,10 @@ import (
 
 var serviceList = make(map[int]Service)
 
+//TODO just for making the testing easier at first
+const inputServices = "services"
+
+
 func GetServices() map[int]Service {
 	return serviceList
 }
@@ -20,11 +24,14 @@ func ImportServices() {
 		fmt.Println("Resources are needed to be imported or created first!!")
 		return
 	}
-
-	getImportSelect := getImportSelection("services")
+	//TODO
+	//getImportSelect := getImportSelection("services")
+	getImportSelect := 1
 	switch getImportSelect {
 	case importViaTextFile:
-		importServicesViaTxt(getFileName())
+		//TODO
+		//importResourcesViaTxt(getFileName())
+		importResourcesViaTxt(inputServices)
 	case addManually:
 		var getService Service
 		var getServiceId int

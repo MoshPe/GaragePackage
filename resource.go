@@ -11,15 +11,22 @@ import (
 
 var resourcesList = make(map[int]Resource)
 
+//TODO just for making the testing easier at first
+const inputResources = "resources"
+
 func GetResources() map[int]Resource {
 	return resourcesList
 }
 
 func ImportResources() {
-	getImportSelect := getImportSelection("resources")
+	//TODO
+	//getImportSelect := getImportSelection("resources")
+	getImportSelect := 1
 	switch getImportSelect {
 	case importViaTextFile:
-		importResourcesViaTxt(getFileName())
+		//TODO
+		//importResourcesViaTxt(getFileName())
+		importResourcesViaTxt(inputResources)
 	case addManually:
 		var getResource Resource
 		var getResourceId int
@@ -88,6 +95,12 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 func PrintResources() {
 	for id, resource := range resourcesList {
 		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
+	}
+}
+
+func PrintResourcesShort(){
+	for id, resource := range resourcesList {
+		fmt.Printf("ID: %d - quantity: %d\n", id, resource.AmountAvailable)
 	}
 }
 
