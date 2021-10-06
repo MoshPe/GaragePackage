@@ -125,16 +125,23 @@ func isRequestExist(requestId int) bool {
 }
 
 
-func PrintRequests() {
+func PrintRequests(fileToPrint *os.File) {
 	requestList.Range(func(key, value interface{}) bool {
 		requestId := key.(int)
 		request := value.(Request)
-		fmt.Printf("ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's",requestId ,request.ArrivalTime.Format("15:04"),request.AmountOfServices)
-		fmt.Println(request.ServicesIdList)
+		fmt.Fprintf(fileToPrint,"ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's [",
+			requestId ,request.ArrivalTime.Format("15:04"),request.AmountOfServices)
+		printRequestServicesList(request,fileToPrint)
 		return true
 	})
 }
 
+func printRequestServicesList(request Request, fileToPrint *os.File){
+	for _, serviceId := range request.ServicesIdList{
+		fmt.Fprintf(fileToPrint,"%d ",serviceId)
+	}
+	fmt.Fprintf(fileToPrint,"]")
+}
 
 /*
 

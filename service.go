@@ -134,11 +134,19 @@ func GetServiceById(serviceId int) Service {
 	return serviceList[serviceId]
 }
 
-func PrintServices() {
+func PrintServices(fileToPrint *os.File) {
 	for id, service := range serviceList {
-		fmt.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's", id, service.Name, service.TimeHr, service.AmountResourcesNeeded)
-		fmt.Println(service.ResourcesIdList)
+		fmt.Fprintf(fileToPrint,"ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's [",
+			id, service.Name, service.TimeHr, service.AmountResourcesNeeded)
+		printServiceResourceList(service,fileToPrint)
 	}
+}
+
+func printServiceResourceList(service Service, fileToPrint *os.File){
+	for _, resourceId := range service.ResourcesIdList{
+		fmt.Fprintf(fileToPrint,"%d ",resourceId)
+	}
+	fmt.Fprintf(fileToPrint,"]")
 }
 
 func PrintServiceNeededResources(serviceId int){
