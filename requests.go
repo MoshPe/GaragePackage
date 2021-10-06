@@ -15,8 +15,8 @@ import (
 // The key is the car id
 var requestList = sync.Map{}
 
-func GetRequests() sync.Map {
-	return requestList
+func GetRequests() *sync.Map {
+	return &requestList
 }
 
 //TODO just for making the testing easier at first
