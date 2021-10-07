@@ -121,19 +121,19 @@ func PrintRequests(fileToPrint *bufio.Writer) {
 	requestList.Range(func(key, value interface{}) bool {
 		requestId := key.(int)
 		request := value.(Request)
-		fmt.Fprintf(fileToPrint,"ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's [",
+		fmt.Printf("ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's [",
 			requestId ,request.ArrivalTime.Format("15:04"),request.AmountOfServices)
 		printRequestServicesList(request,fileToPrint)
-		fmt.Fprintf(fileToPrint,"\n")
+		fmt.Printf("\n")
 		return true
 	})
 }
 
 func printRequestServicesList(request Request, fileToPrint *bufio.Writer){
 	for _, serviceId := range request.ServicesIdList{
-		fmt.Fprintf(fileToPrint,"%d ",serviceId)
+		fmt.Printf("%d ",serviceId)
 	}
-	fmt.Fprintf(fileToPrint,"]")
+	fmt.Printf("]")
 }
 
 /*

@@ -94,13 +94,13 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 
 func PrintResources(fileToPrint *bufio.Writer) {
 	for id, resource := range resourcesList {
-		fmt.Fprintf(fileToPrint,"ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
+		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
 	}
 }
 
 func PrintResourcesShort(fileToPrint *bufio.Writer){
 	for id, resource := range resourcesList {
-		fmt.Fprintf(fileToPrint,"ID: %d - quantity: %d\n", id, resource.AmountAvailable)
+		fmt.Printf("ID: %d - quantity: %d\n", id, resource.AmountAvailable)
 	}
 }
 
