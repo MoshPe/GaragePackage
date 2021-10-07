@@ -19,23 +19,15 @@ func GetRequests() *sync.Map {
 	return &requestList
 }
 
-//TODO just for making the testing easier at first
-const inputRequests = "requests"
-
-
 func ImportRequests() {
 	if len(GetServices()) == 0 {
 		fmt.Println("Services are needed to be imported or created first!!")
 		return
 	}
-	//TODO
-	//getImportSelect := getImportSelection("requests")
-	getImportSelect := 1
+	getImportSelect := getImportSelection("requests")
 	switch getImportSelect {
 	case importViaTextFile:
-		//TODO
-		//importRequestsViaTxt(getFileName())
-		importRequestsViaTxt(inputRequests)
+		importRequestsViaTxt(getFileName())
 	case addManually:
 		var getRequest Request
 		var getRequestId int
