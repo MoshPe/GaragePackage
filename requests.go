@@ -124,6 +124,7 @@ func PrintRequests(fileToPrint *bufio.Writer) {
 		fmt.Fprintf(fileToPrint,"ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's [",
 			requestId ,request.ArrivalTime.Format("15:04"),request.AmountOfServices)
 		printRequestServicesList(request,fileToPrint)
+		fmt.Fprintf(fileToPrint,"\n")
 		return true
 	})
 }

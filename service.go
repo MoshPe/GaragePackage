@@ -139,6 +139,7 @@ func PrintServices(fileToPrint *bufio.Writer) {
 		fmt.Fprintf(fileToPrint,"ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's [",
 			id, service.Name, service.TimeHr, service.AmountResourcesNeeded)
 		printServiceResourceList(service,fileToPrint)
+		fmt.Fprintf(fileToPrint,"\n")
 	}
 }
 
