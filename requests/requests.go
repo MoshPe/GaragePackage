@@ -1,8 +1,10 @@
-package Garage
+package requests
 
 import (
 	"bufio"
 	"fmt"
+	Service "github.com/MoshPe/GaragePackage/services"
+	Utils "github.com/MoshPe/GaragePackage/utils"
 	"log"
 	"os"
 	"strconv"
@@ -19,22 +21,23 @@ func GetRequests() *sync.Map {
 	return &requestList
 }
 
-func ImportRequests() {
-	if len(GetServices()) == 0 {
+func ImportRequests() (Request, int){
+	if len(Service.GetServices()) == 0 {
 		fmt.Println("Services are needed to be imported or created first!!")
-		return
+		return Request{}, -1
 	}
-	getImportSelect := getImportSelection("requests")
+	getImportSelect := Utils.GetImportSelection("requests")
 	switch getImportSelect {
-	case importViaTextFile:
-		importRequestsViaTxt(getFileName())
-	case addManually:
+	case Utils.ImportViaTextFile:
+		importRequestsViaTxt(Utils.GetFileName())
+		return Request{}, -1
+	case Utils.AddManually:
 		var getRequest Request
 		var getRequestId int
 		var getArrivalTime string
 		for ok := true; ok; {
-			IntInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
-			ok = isServiceExist(getRequestId)
+			Utils.IntInput("Please enter the car id ->: ", "Wrong input for car id", &getRequestId)
+			ok = isRequestExist(getRequestId)
 		}
 
 		fmt.Printf("Please enter the car time of arrival (hh:mm) ->: ")
@@ -42,14 +45,14 @@ func ImportRequests() {
 			log.Fatalln("Wrong input arrival time")
 		}
 		getRequest.ArrivalTime,_ = time.Parse("15:04",getArrivalTime)
-		IntInput("Please enter the amount of services ->:",
+		Utils.IntInput("Please enter the amount of services ->:",
 			"Wrong input service's quantity", &getRequest.AmountOfServices)
 
 		var serviceId int
 		fmt.Println("Please enter the services id's ->:")
 		for i := 0; i < getRequest.AmountOfServices; i++ {
-			IntInput("", "couldn't input service's id", &serviceId)
-			if !isServiceExist(serviceId) {
+			Utils.IntInput("", "couldn't input service's id", &serviceId)
+			if !Service.IsServiceExist(serviceId) {
 				fmt.Println("Service ", serviceId, " doesnt exist, Please try again!")
 				i--
 				continue
@@ -57,7 +60,9 @@ func ImportRequests() {
 			getRequest.ServicesIdList = append(getRequest.ServicesIdList, serviceId)
 		}
 		requestList.Store(getRequestId,getRequest)
+		return getRequest, getRequestId
 	}
+	return Request{}, 0
 }
 
 func importRequestsViaTxt(fileName string) {
@@ -66,7 +71,7 @@ func importRequestsViaTxt(fileName string) {
 		log.Fatal(err)
 	}
 	//close the file when the function finishes
-	defer closeFile(importFile)
+	defer Utils.CloseFile(importFile)
 	scanner := bufio.NewScanner(importFile)
 	var getRequest Request
 	var getRequestId int
@@ -77,7 +82,7 @@ func importRequestsViaTxt(fileName string) {
 		}
 		for i := 3; i < len(resources); i++ {
 			serviceId, _ := strconv.Atoi(resources[i])
-			if !isServiceExist(serviceId) {
+			if !Service.IsServiceExist(serviceId) {
 				fmt.Println("Service ", serviceId, " doesnt exist, Please fix the file!. service id: ",getRequestId)
 				getRequest.ServicesIdList = nil
 				break
@@ -96,7 +101,7 @@ func checkRequestValidation(resources []string, getRequestId *int, getRequest *R
 		requestResourceQuantity = 2
 	)
 	var err error
-	if *getRequestId, _ = strconv.Atoi(resources[requestId]); !isIntPositive(*getRequestId) {
+	if *getRequestId, _ = strconv.Atoi(resources[requestId]); !Utils.IsIntPositive(*getRequestId) {
 		errResult = "Invalid given request id!"
 	}
 	if isRequestExist(*getRequestId) {
@@ -105,7 +110,7 @@ func checkRequestValidation(resources []string, getRequestId *int, getRequest *R
 	if getRequest.ArrivalTime, err = time.Parse("15:04", resources[requestArrivalTime]); err != nil {
 		errResult = "request arrival time -" + resources[requestArrivalTime] + " need to be as format hh:mm"
 	}
-	if getRequest.AmountOfServices, _ = strconv.Atoi(resources[requestResourceQuantity]); !isIntPositive(getRequest.AmountOfServices) {
+	if getRequest.AmountOfServices, _ = strconv.Atoi(resources[requestResourceQuantity]); !Utils.IsIntPositive(getRequest.AmountOfServices) {
 		errResult = "Invalid given resource quantity!"
 	}
 	return
@@ -121,7 +126,7 @@ func PrintRequests(fileToPrint *bufio.Writer) {
 	requestList.Range(func(key, value interface{}) bool {
 		requestId := key.(int)
 		request := value.(Request)
-		fmt.Printf("ID: %d, request Arrival Time name: %s, services amount needed: %d, services id's [",
+		fmt.Printf("ID: %d, request Arrival Time : %s, services amount needed: %d, services id's [",
 			requestId ,request.ArrivalTime.Format("15:04"),request.AmountOfServices)
 		printRequestServicesList(request,fileToPrint)
 		fmt.Printf("\n")

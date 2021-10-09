@@ -1,4 +1,4 @@
-package Garage
+package resources
 
 type Resource struct {
 	Name string

@@ -1,4 +1,4 @@
-package Garage
+package utils
 
 import (
 	"bufio"
@@ -10,18 +10,18 @@ import (
 )
 
 const (
-	importViaTextFile = 1
-	addManually       = 2
+	ImportViaTextFile = 1
+	AddManually       = 2
 )
 
-func closeFile(importFile *os.File) {
+func CloseFile(importFile *os.File) {
 	err := importFile.Close()
 	if err != nil {
 		log.Fatalln("Error in closing the import file")
 	}
 }
 
-func getImportSelection(typeToImport string) int8 {
+func GetImportSelection(typeToImport string) int8 {
 	var getImportSelect int8
 	fmt.Printf("1 - import %s from a txt file\n"+
 		"2 - add a %s\n->:", typeToImport, typeToImport)
@@ -31,7 +31,7 @@ func getImportSelection(typeToImport string) int8 {
 	return getImportSelect
 }
 
-func getFileName() string {
+func GetFileName() string {
 	var getFileName string
 	fmt.Printf("Please enter the file.txt name ->: ")
 	if _, err := fmt.Scanln(&getFileName); err != nil {
@@ -40,7 +40,7 @@ func getFileName() string {
 	return getFileName
 }
 
-func inputName(importType string) string {
+func InputName(importType string) string {
 	//reading a full line
 	var nameToInput string
 	var err error
@@ -54,7 +54,7 @@ func inputName(importType string) string {
 	return nameToInput
 }
 
-func isIntPositive(intToCheck int) bool {
+func IsIntPositive(intToCheck int) bool {
 	if intToCheck < 0 {
 		return false
 	}
@@ -63,12 +63,12 @@ func isIntPositive(intToCheck int) bool {
 
 func IntInput(str, errStr string, inputTo *int) {
 	fmt.Println(str)
-	if _, err := fmt.Scanf("%d",inputTo); err != nil {
+	if _, err := fmt.Scanln(inputTo); err != nil {
 		log.Fatalln(errStr)
 	}
 }
 
-func isProductNameValid(name string) bool {
+func IsProductNameValid(name string) bool {
 	for _, r := range name {
 		if !unicode.IsLetter(r) && r != ' ' {
 			return false

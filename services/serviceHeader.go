@@ -1,4 +1,4 @@
-package Garage
+package services
 
 type Service struct {
 	Name string

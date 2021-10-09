@@ -1,8 +1,10 @@
-package Garage
+package services
 
 import (
 	"bufio"
 	"fmt"
+	Resource "github.com/MoshPe/GaragePackage/resources"
+	Utils "github.com/MoshPe/GaragePackage/utils"
 	"log"
 	"os"
 	"strconv"
@@ -20,7 +22,7 @@ func GetServices() map[int]Service {
 }
 
 func ImportServices() {
-	if len(GetResources()) == 0{
+	if len(Resource.GetResources()) == 0{
 		fmt.Println("Resources are needed to be imported or created first!!")
 		return
 	}
@@ -28,30 +30,30 @@ func ImportServices() {
 	//getImportSelect := getImportSelection("services")
 	getImportSelect := 1
 	switch getImportSelect {
-	case importViaTextFile:
+	case Utils.ImportViaTextFile:
 		//TODO
 		//importServicesViaTxt(getFileName())
 		importServicesViaTxt(inputServices)
-	case addManually:
+	case Utils.AddManually:
 		var getService Service
 		var getServiceId int
 		for ok := true; ok; {
-			IntInput("Please enter the service id ->: ", "Wrong input service id", &getServiceId)
-			ok = isServiceExist(getServiceId)
+			Utils.IntInput("Please enter the service id ->: ", "Wrong input service id", &getServiceId)
+			ok = IsServiceExist(getServiceId)
 		}
-		getService.Name = inputName("service")
+		getService.Name = Utils.InputName("service")
 
-		IntInput("Please enter the service work time in Hrs ->: ",
+		Utils.IntInput("Please enter the service work time in Hrs ->: ",
 			"Wrong input service work time", &getService.TimeHr)
 
-		IntInput("Please enter the amount of resources ->:",
+		Utils.IntInput("Please enter the amount of resources ->:",
 			"Wrong input resource's quantity", &getService.AmountResourcesNeeded)
 
 		var resourceId int
 		fmt.Println("Please enter the resources id's ->:")
 		for i := 0; i < getService.AmountResourcesNeeded; i++ {
-			IntInput("", "couldn't input resource's id", &resourceId)
-			if !isResourceExist(resourceId) {
+			Utils.IntInput("", "couldn't input resource's id", &resourceId)
+			if !Resource.IsResourceExist(resourceId) {
 				fmt.Println("Resource ", resourceId, " doesnt exist, Please try again!")
 				i--
 				continue
@@ -69,7 +71,7 @@ func importServicesViaTxt(fileName string) {
 	}
 
 	//close the file when the function finishes
-	defer closeFile(importFile)
+	defer Utils.CloseFile(importFile)
 	scanner := bufio.NewScanner(importFile)
 	var getService Service
 	var getServiceId int
@@ -83,7 +85,7 @@ func importServicesViaTxt(fileName string) {
 		//Input the service's resources as a list
 		for i := 0; i < getService.AmountResourcesNeeded; i++ {
 			resourceId, _ := strconv.Atoi(resources[i+4])
-			if !isResourceExist(resourceId) {
+			if !Resource.IsResourceExist(resourceId) {
 				fmt.Println("Resource ", resourceId, " doesnt exist, Please fix the file!. service id: ",getServiceId)
 				getService.ResourcesIdList = nil
 				break
@@ -104,26 +106,26 @@ func checkServiceValidation(resources []string, getServiceId *int, getService *S
 		serviceWorkTime         = 2
 		serviceResourceQuantity = 3
 	)
-	if *getServiceId, _ = strconv.Atoi(resources[serviceId]); !isIntPositive(*getServiceId) {
+	if *getServiceId, _ = strconv.Atoi(resources[serviceId]); !Utils.IsIntPositive(*getServiceId) {
 		errResult = "Invalid given service id!"
 	}
-	if isServiceExist(*getServiceId) {
-		errResult = "Invalid given resource id!"
+	if IsServiceExist(*getServiceId) {
+		errResult = "Invalid given service id!"
 	}
-	if getService.Name = resources[serviceName]; !isProductNameValid(getService.Name) {
+	if getService.Name = resources[serviceName]; !Utils.IsProductNameValid(getService.Name) {
 		errResult = "product name -" + resources[serviceName] + " need to contain only letters a-z , A-Z"
 	}
 
-	if getService.TimeHr, _ = strconv.Atoi(resources[serviceWorkTime]); !isIntPositive(getService.TimeHr) {
+	if getService.TimeHr, _ = strconv.Atoi(resources[serviceWorkTime]); !Utils.IsIntPositive(getService.TimeHr) {
 		errResult = "Invalid given service work time! - service id: " + strconv.Itoa(*getServiceId)
 	}
-	if getService.AmountResourcesNeeded, _ = strconv.Atoi(resources[serviceResourceQuantity]); !isIntPositive(getService.AmountResourcesNeeded) {
+	if getService.AmountResourcesNeeded, _ = strconv.Atoi(resources[serviceResourceQuantity]); !Utils.IsIntPositive(getService.AmountResourcesNeeded) {
 		errResult = "Invalid given service's resource quantity!" + strconv.Itoa(*getServiceId)
 	}
 	return
 }
 
-func isServiceExist(serviceId int) bool {
+func IsServiceExist(serviceId int) bool {
 	if _, ok := serviceList[serviceId]; ok {
 		return true
 	}

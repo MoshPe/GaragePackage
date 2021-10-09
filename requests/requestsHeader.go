@@ -1,4 +1,4 @@
-package Garage
+package requests
 
 import "time"
 

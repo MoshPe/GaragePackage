@@ -1,8 +1,9 @@
-package Garage
+package resources
 
 import (
 	"bufio"
 	"fmt"
+	Utils "github.com/MoshPe/GaragePackage/utils"
 	"log"
 	"os"
 	"strconv"
@@ -23,19 +24,19 @@ func ImportResources() {
 	//getImportSelect := getImportSelection("resources")
 	getImportSelect := 1
 	switch getImportSelect {
-	case importViaTextFile:
+	case Utils.ImportViaTextFile:
 		//TODO
 		//importResourcesViaTxt(getFileName())
 		importResourcesViaTxt(inputResources)
-	case addManually:
+	case Utils.AddManually:
 		var getResource Resource
 		var getResourceId int
 		for ok := true; ok; {
-			IntInput("Please enter the resource id ->: ", "Wrong input resource id", &getResourceId)
-			ok = isResourceExist(getResourceId)
+			Utils.IntInput("Please enter the resource id ->: ", "Wrong input resource id", &getResourceId)
+			ok = IsResourceExist(getResourceId)
 		}
-		getResource.Name = inputName("resource")
-		IntInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.AmountAvailable)
+		getResource.Name = Utils.InputName("resource")
+		Utils.IntInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.AmountAvailable)
 		resourcesList[getResourceId] = getResource
 	}
 	for _, resource := range resourcesList {
@@ -49,7 +50,7 @@ func importResourcesViaTxt(fileName string) {
 		log.Fatal(err)
 	}
 	//close the file when the function finishes
-	defer closeFile(importFile)
+	defer Utils.CloseFile(importFile)
 	var getResource Resource
 	var getResourceId int
 	scanner := bufio.NewScanner(importFile)
@@ -62,7 +63,7 @@ func importResourcesViaTxt(fileName string) {
 	}
 }
 
-func isResourceExist(resourceId int) bool {
+func IsResourceExist(resourceId int) bool {
 	if _, ok := resourcesList[resourceId]; ok {
 		return true
 	}
@@ -75,16 +76,16 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 		resourceName     = 1
 		resourceQuantity = 2
 	)
-	if getResource.Name = resources[resourceName]; !isProductNameValid(getResource.Name) {
+	if getResource.Name = resources[resourceName]; !Utils.IsProductNameValid(getResource.Name) {
 		errResult = "product name -" + resources[resourceName] + " need to contain only letters a-z , A-Z"
 	}
-	if *getResourceId, _ = strconv.Atoi(resources[resourceId]); !isIntPositive(*getResourceId) {
+	if *getResourceId, _ = strconv.Atoi(resources[resourceId]); !Utils.IsIntPositive(*getResourceId) {
 		errResult = "Invalid given resource id!"
 	}
-	if isResourceExist(*getResourceId) {
+	if IsResourceExist(*getResourceId) {
 		errResult = "Invalid given resource id!"
 	}
-	if getResource.AmountAvailable, _ = strconv.Atoi(resources[resourceQuantity]); !isIntPositive(getResource.AmountAvailable) {
+	if getResource.AmountAvailable, _ = strconv.Atoi(resources[resourceQuantity]); !Utils.IsIntPositive(getResource.AmountAvailable) {
 		errResult = "Invalid given resource quantity!"
 	}
 	return
@@ -104,6 +105,6 @@ func PrintResourcesShort(fileToPrint *bufio.Writer){
 	}
 }
 
-func GetResourceById(resourceId int) Resource{
+func GetResourceById(resourceId int) Resource {
 	return resourcesList[resourceId]
 }
