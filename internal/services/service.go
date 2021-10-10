@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	Resource "github.com/MoshPe/GaragePackage/resources"
-	Utils "github.com/MoshPe/GaragePackage/utils"
+	Resource "github.com/MoshPe/GaragePackage/internal/resources"
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
 var serviceList = make(map[int]Service)

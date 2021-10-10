@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	Utils "github.com/MoshPe/GaragePackage/utils"
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
 var resourcesList = make(map[int]Resource)
