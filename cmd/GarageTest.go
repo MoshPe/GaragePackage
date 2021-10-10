@@ -12,10 +12,10 @@ import (
 	"time"
 	"unsafe"
 
-	Request "github.com/MoshPe/GaragePackage/internal/requests"
-	Resource "github.com/MoshPe/GaragePackage/internal/resources"
-	Service "github.com/MoshPe/GaragePackage/internal/services"
-	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
+	Request "github.com/MoshPe/GaragePackage/requests"
+	Resource "github.com/MoshPe/GaragePackage/resources"
+	Service "github.com/MoshPe/GaragePackage/services"
+	Utils "github.com/MoshPe/GaragePackage/utils"
 )
 
 /*

@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	Service "github.com/MoshPe/GaragePackage/internal/services"
-	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
+	Service "github.com/MoshPe/GaragePackage/services"
+	Utils "github.com/MoshPe/GaragePackage/utils"
 )
 
 //TODO using sync.Map for concurrency
