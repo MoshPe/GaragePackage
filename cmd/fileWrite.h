@@ -1,7 +1,7 @@
-#ifndef _FILEWRITE_H
-#define _FILEWRITE_H
+#ifndef __FILEWRITE__H
+#define __FILEWRITE__H
 
 void printToLog(int id, char* time, char* msg);
 void printDayCountToLog(int dayCount);
 
-#endif
+#endif // __FILEWRITE__H

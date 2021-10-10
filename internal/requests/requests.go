@@ -3,15 +3,17 @@ package requests
 import (
 	"bufio"
 	"fmt"
-	Service "github.com/MoshPe/GaragePackage/services"
-	Utils "github.com/MoshPe/GaragePackage/utils"
 	"log"
 	"os"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	Service "github.com/MoshPe/GaragePackage/internal/services"
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
+
 //TODO using sync.Map for concurrency
 
 // The key is the car id
@@ -21,7 +23,7 @@ func GetRequests() *sync.Map {
 	return &requestList
 }
 
-func ImportRequests() (Request, int){
+func ImportRequests() (Request, int) {
 	if len(Service.GetServices()) == 0 {
 		fmt.Println("Services are needed to be imported or created first!!")
 		return Request{}, -1
@@ -44,7 +46,7 @@ func ImportRequests() (Request, int){
 		if _, err := fmt.Scanln(&getArrivalTime); err != nil {
 			log.Fatalln("Wrong input arrival time")
 		}
-		getRequest.ArrivalTime,_ = time.Parse("15:04",getArrivalTime)
+		getRequest.ArrivalTime, _ = time.Parse("15:04", getArrivalTime)
 		Utils.IntInput("Please enter the amount of services ->:",
 			"Wrong input service's quantity", &getRequest.AmountOfServices)
 
@@ -59,7 +61,7 @@ func ImportRequests() (Request, int){
 			}
 			getRequest.ServicesIdList = append(getRequest.ServicesIdList, serviceId)
 		}
-		requestList.Store(getRequestId,getRequest)
+		requestList.Store(getRequestId, getRequest)
 		return getRequest, getRequestId
 	}
 	return Request{}, 0
@@ -83,13 +85,13 @@ func importRequestsViaTxt(fileName string) {
 		for i := 3; i < len(resources); i++ {
 			serviceId, _ := strconv.Atoi(resources[i])
 			if !Service.IsServiceExist(serviceId) {
-				fmt.Println("Service ", serviceId, " doesnt exist, Please fix the file!. service id: ",getRequestId)
+				fmt.Println("Service ", serviceId, " doesnt exist, Please fix the file!. service id: ", getRequestId)
 				getRequest.ServicesIdList = nil
 				break
 			}
 			getRequest.ServicesIdList = append(getRequest.ServicesIdList, serviceId)
 		}
-		requestList.Store(getRequestId,getRequest)
+		requestList.Store(getRequestId, getRequest)
 		getRequest.ServicesIdList = nil
 	}
 }
@@ -121,22 +123,21 @@ func isRequestExist(requestId int) bool {
 	return isExist
 }
 
-
 func PrintRequests(fileToPrint *bufio.Writer) {
 	requestList.Range(func(key, value interface{}) bool {
 		requestId := key.(int)
 		request := value.(Request)
 		fmt.Printf("ID: %d, request Arrival Time : %s, services amount needed: %d, services id's [",
-			requestId ,request.ArrivalTime.Format("15:04"),request.AmountOfServices)
-		printRequestServicesList(request,fileToPrint)
+			requestId, request.ArrivalTime.Format("15:04"), request.AmountOfServices)
+		printRequestServicesList(request, fileToPrint)
 		fmt.Printf("\n")
 		return true
 	})
 }
 
-func printRequestServicesList(request Request, fileToPrint *bufio.Writer){
-	for _, serviceId := range request.ServicesIdList{
-		fmt.Printf("%d ",serviceId)
+func printRequestServicesList(request Request, fileToPrint *bufio.Writer) {
+	for _, serviceId := range request.ServicesIdList {
+		fmt.Printf("%d ", serviceId)
 	}
 	fmt.Printf("]")
 }
@@ -264,4 +265,4 @@ func PrintRequests() {
 		fmt.Println(request.ServicesIdList)
 	}
 }
- */
+*/

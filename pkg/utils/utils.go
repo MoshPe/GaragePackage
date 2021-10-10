@@ -55,10 +55,7 @@ func InputName(importType string) string {
 }
 
 func IsIntPositive(intToCheck int) bool {
-	if intToCheck < 0 {
-		return false
-	}
-	return true
+	return intToCheck < 0
 }
 
 func IntInput(str, errStr string, inputTo *int) {

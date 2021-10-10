@@ -3,12 +3,13 @@ package services
 import (
 	"bufio"
 	"fmt"
-	Resource "github.com/MoshPe/GaragePackage/resources"
-	Utils "github.com/MoshPe/GaragePackage/utils"
 	"log"
 	"os"
 	"strconv"
 	"strings"
+
+	Resource "github.com/MoshPe/GaragePackage/internal/resources"
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
 var serviceList = make(map[int]Service)
@@ -16,13 +17,12 @@ var serviceList = make(map[int]Service)
 //TODO just for making the testing easier at first
 const inputServices = "services"
 
-
 func GetServices() map[int]Service {
 	return serviceList
 }
 
 func ImportServices() {
-	if len(Resource.GetResources()) == 0{
+	if len(Resource.GetResources()) == 0 {
 		fmt.Println("Resources are needed to be imported or created first!!")
 		return
 	}
@@ -75,7 +75,7 @@ func importServicesViaTxt(fileName string) {
 	scanner := bufio.NewScanner(importFile)
 	var getService Service
 	var getServiceId int
-	const serviceWorkTime = 2
+	//const serviceWorkTime = 2
 	for scanner.Scan() {
 		resources := strings.Split(scanner.Text(), "\t")
 		if errResult := checkServiceValidation(resources, &getServiceId, &getService); errResult != "" {
@@ -86,7 +86,7 @@ func importServicesViaTxt(fileName string) {
 		for i := 0; i < getService.AmountResourcesNeeded; i++ {
 			resourceId, _ := strconv.Atoi(resources[i+4])
 			if !Resource.IsResourceExist(resourceId) {
-				fmt.Println("Resource ", resourceId, " doesnt exist, Please fix the file!. service id: ",getServiceId)
+				fmt.Println("Resource ", resourceId, " doesnt exist, Please fix the file!. service id: ", getServiceId)
 				getService.ResourcesIdList = nil
 				break
 			}
@@ -140,21 +140,21 @@ func PrintServices(fileToPrint *bufio.Writer) {
 	for id, service := range serviceList {
 		fmt.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's [",
 			id, service.Name, service.TimeHr, service.AmountResourcesNeeded)
-		printServiceResourceList(service,fileToPrint)
+		printServiceResourceList(service, fileToPrint)
 		fmt.Printf("\n")
 	}
 }
 
-func printServiceResourceList(service Service, fileToPrint *bufio.Writer){
-	for _, resourceId := range service.ResourcesIdList{
-		fmt.Printf("%d ",resourceId)
+func printServiceResourceList(service Service, fileToPrint *bufio.Writer) {
+	for _, resourceId := range service.ResourcesIdList {
+		fmt.Printf("%d ", resourceId)
 	}
 	fmt.Printf("]")
 }
 
-func PrintServiceNeededResources(serviceId int ,fileToPrint *bufio.Writer){
+func PrintServiceNeededResources(serviceId int, fileToPrint *bufio.Writer) {
 	service := serviceList[serviceId]
-	fmt.Printf("service name %s resources->: [",service.Name)
-	printServiceResourceList(service,fileToPrint)
+	fmt.Printf("service name %s resources->: [", service.Name)
+	printServiceResourceList(service, fileToPrint)
 	fmt.Printf("\n")
 }

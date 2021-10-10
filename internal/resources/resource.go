@@ -3,11 +3,12 @@ package resources
 import (
 	"bufio"
 	"fmt"
-	Utils "github.com/MoshPe/GaragePackage/utils"
 	"log"
 	"os"
 	"strconv"
 	"strings"
+
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
 var resourcesList = make(map[int]Resource)
@@ -99,7 +100,7 @@ func PrintResources(fileToPrint *bufio.Writer) {
 	}
 }
 
-func PrintResourcesShort(fileToPrint *bufio.Writer){
+func PrintResourcesShort(fileToPrint *bufio.Writer) {
 	for id, resource := range resourcesList {
 		fmt.Printf("ID: %d - quantity: %d\n", id, resource.AmountAvailable)
 	}
