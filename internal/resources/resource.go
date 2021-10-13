@@ -2,13 +2,13 @@ package resources
 
 import (
 	"bufio"
+	"container/list"
 	"fmt"
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 	"log"
 	"os"
 	"strconv"
 	"strings"
-	"container/list"
-	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
 var resourcesList = make(map[int]Resource)
@@ -41,7 +41,7 @@ func ImportResources() {
 		resourcesList[getResourceId] = getResource
 	}
 	for _, resource := range resourcesList {
-		resource.whenAvailable = make([]list.List, resource.AmountAvailable)
+		resource.WhenAvailable = make([]list.List, resource.AmountAvailable)
 	}
 }
 

@@ -103,9 +103,9 @@ func changeResourceAmount(service Service.Service, inc bool) {
 		if inc {
 			resourceDown.AmountAvailable++
 		} else {
-			for _, timeToFinish := range resourceLIst[resourceId].whenAvailable {
-				if timeToFinish != nil {
-					if t.After(timeToFinish.(time.Time)) || t.Sub(timeToFinish.(time.Time)) == 0 {
+				for timeToFinish := (resourceDown.WhenAvailable).Front(); timeToFinish != nil; timeToFinish = timeToFinish.Next() {
+					if timeToFinish != nil {
+						if t.After(timeToFinish.(time.Time)) || t.Sub(timeToFinish.(time.Time)) == 0 {
 						return true
 					}
 				}
