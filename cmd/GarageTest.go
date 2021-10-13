@@ -98,16 +98,18 @@ func scanResources(service Service.Service) bool {
 }
 
 func changeResourceAmount(service Service.Service, inc bool) {
+	var timeToFinish time.Time
 	for _, resourceId := range service.ResourcesIdList {
 		resourceDown := resourceLIst[resourceId]
 		if inc {
 			resourceDown.AmountAvailable++
 		} else {
-				for timeToFinish := (resourceDown.WhenAvailable).Front(); timeToFinish != nil; timeToFinish = timeToFinish.Next() {
-					if timeToFinish != nil {
-						if t.After(timeToFinish.(time.Time)) || t.Sub(timeToFinish.(time.Time)) == 0 {
-						return true
-					}
+			for _, resourceAvailabilityInTime := range resourceDown.WhenAvailable {
+				for headOfQueueTime := resourceAvailabilityInTime.Front(); headOfQueueTime != nil; headOfQueueTime = headOfQueueTime.Next() {
+					timeToFinish = headOfQueueTime.Value.(time.Time)
+						if t.After(timeToFinish) || t.Sub(timeToFinish) == 0 {
+
+						}
 				}
 			}
 			resourceDown.AmountAvailable--
