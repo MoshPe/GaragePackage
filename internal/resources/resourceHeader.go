@@ -1,7 +1,9 @@
 package resources
 
+import "container/list"
+
 type Resource struct {
-	Name string
+	Name            string
 	AmountAvailable int
-	IsTaken []bool
+	whenAvailable   []list.List
 }

@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
+	"container/list"
 	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
@@ -41,7 +41,7 @@ func ImportResources() {
 		resourcesList[getResourceId] = getResource
 	}
 	for _, resource := range resourcesList {
-		resource.IsTaken = make([]bool, resource.AmountAvailable)
+		resource.whenAvailable = make([]list.List, resource.AmountAvailable)
 	}
 }
 
