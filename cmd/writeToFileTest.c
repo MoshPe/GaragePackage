@@ -15,3 +15,11 @@ void printDayCountToLog(int dayCount){
     fclose(fp);
 
 }
+
+void deleteFileIfExist(){
+    FILE *fp = fopen("logs.txt","r");
+    if (fp != NULL){
+        remove("logs.txt");
+    }
+}
+

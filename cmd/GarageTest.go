@@ -6,16 +6,16 @@ package main
 import (
 	"bufio"
 	"fmt"
+	Request "github.com/MoshPe/GaragePackage/internal/requests"
+	Resource "github.com/MoshPe/GaragePackage/internal/resources"
+	Service "github.com/MoshPe/GaragePackage/internal/services"
+	Queue "github.com/MoshPe/GaragePackage/pkg/queue"
+	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 	"log"
 	"os"
 	"sync"
 	"time"
 	"unsafe"
-
-	Request "github.com/MoshPe/GaragePackage/internal/requests"
-	Resource "github.com/MoshPe/GaragePackage/internal/resources"
-	Service "github.com/MoshPe/GaragePackage/internal/services"
-	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 )
 
 /*
@@ -28,14 +28,21 @@ import "C"
 var (
 	t                 time.Time
 	resourcesScanLock = &sync.Mutex{}
-	resourceLIst      map[int]Resource.Resource
+	resourceList      map[int]Resource.Resource
 	requestList       sync.Map
 	printToFile       *bufio.Writer
 )
 
+const(
+	endOfDayInTime = "15:30"
+	beginningOfTheDay = "06:30"
+)
+
 func main() {
+	C.deleteFileIfExist()
+	hmm := printToTxtFile()
 	defer func() {
-		err := printToTxtFile().Close()
+		err := hmm.Close()
 		if err != nil {
 			log.Fatal("Couldn't close the file")
 		}
@@ -66,17 +73,18 @@ func executeServices(carId int, carRequest Request.Request) {
 			}
 			resourcesScanLock.Lock()
 			if scanResources(service) {
-				// Resource.PrintResourcesShort(printToFile)
-				// Service.PrintServiceNeededResources(serviceId,printToFile)
+				log.Printf("\ntimeNow %s - car %d - serviceId %d\n",t.Format("15:04"),carId,serviceId)
+				Service.PrintServiceNeededResources(serviceId,printToFile)
+				Resource.PrintResourcesShort(printToFile)
 				printToLogs(carId, "starting to collect resources")
-				changeResourceAmount(service, false)
+				changeResourceAmount(carId,serviceId,service, false, false)
 				resourcesScanLock.Unlock()
 				printToLogs(carId, "started "+service.Name)
 				time.Sleep(time.Second * time.Duration(service.TimeHr*4))
 				printToLogs(carId, "finished "+service.Name)
 				carRequest.ServicesIdList = removeItem(carRequest.ServicesIdList, i, carId)
 				resourcesScanLock.Lock()
-				changeResourceAmount(service, true)
+				changeResourceAmount(carId,serviceId,service, true, false)
 				resourcesScanLock.Unlock()
 				break
 			} else {
@@ -88,44 +96,107 @@ func executeServices(carId int, carRequest Request.Request) {
 }
 
 func scanResources(service Service.Service) bool {
+	//TODO for not VIP requests we need to check for nil in every resource, check for having at least 1 empty timeQueue
 	for _, resourceID := range service.ResourcesIdList {
-		// means that we can't execute the request
-		if resourceLIst[resourceID].AmountAvailable == 0 {
+		if resourceList[resourceID].AmountAvailable == 0 {
 			return false
 		}
 	}
 	return true
 }
 
-func changeResourceAmount(service Service.Service, inc bool) {
-	var timeToFinish time.Time
+func changeResourceAmount(carId,serviceId int,service Service.Service, inc bool, isVIP bool) {
 	for _, resourceId := range service.ResourcesIdList {
-		resourceDown := resourceLIst[resourceId]
+		resource := resourceList[resourceId]
 		if inc {
-			resourceDown.AmountAvailable++
+			resource.AmountAvailable++
+			pullRequestOutTime(carId,serviceId,resource)
 		} else {
-			for _, resourceAvailabilityInTime := range resourceDown.WhenAvailable {
-				for headOfQueueTime := resourceAvailabilityInTime.Front(); headOfQueueTime != nil; headOfQueueTime = headOfQueueTime.Next() {
-					timeToFinish = headOfQueueTime.Value.(time.Time)
-						if t.After(timeToFinish) || t.Sub(timeToFinish) == 0 {
-
-						}
-				}
-			}
-			resourceDown.AmountAvailable--
+			finishTime := t.Add(time.Hour * time.Duration(service.TimeHr))
+			insertRequestOutTime(carId,serviceId,finishTime, resource,isVIP)
+			resource.AmountAvailable--
 		}
-		resourceLIst[resourceId] = resourceDown
+		resourceList[resourceId] = resource
 	}
 }
 
+func insertRequestOutTime(carId,ServiceId int, FinishedTIme time.Time,resource Resource.Resource, isVIP bool) {
+	var insertTime = Resource.RequestTime{
+		CarId:        carId,
+		ServiceId:    ServiceId,
+		FinishedTIme: FinishedTIme,
+	}
+	if isVIP {
+			minInd := findMinimumFinishTime(resource.WhenAvailable)
+			resource.WhenAvailable[minInd] = Queue.Enqueue(resource.WhenAvailable[minInd], insertTime)
+		}else {
+			for i := 0; i < len(resource.WhenAvailable); i++ {
+				if resource.WhenAvailable[i] == nil {
+					resource.WhenAvailable[i] = Queue.Enqueue(resource.WhenAvailable[i], insertTime)
+				return
+			}
+		}
+	}
+}
+
+func findMinimumFinishTime(arrayOfTimeList [][]Resource.RequestTime) int{
+	minTime, _ := time.Parse("15:04", endOfDayInTime)
+	var minInd int
+	for i := 0; i < len(arrayOfTimeList); i++ {
+		if arrayOfTimeList[i] != nil {
+			queueMinTime := Queue.Tail(arrayOfTimeList[i])
+			if checkIfMin(minTime,queueMinTime){
+				minTime = queueMinTime.FinishedTIme
+				minInd = i
+			}
+		}else {
+			//Means that the list in empty and the resource is free
+			return i
+		}
+	}
+	return minInd
+}
+
+func pullRequestOutTime(carId,ServiceId int, resource Resource.Resource)  {
+	for i := 0; i < len(resource.WhenAvailable); i++ {
+		if resource.WhenAvailable[i] != nil {
+			if resource.WhenAvailable[i][0].CarId == carId &&
+				resource.WhenAvailable[i][0].ServiceId == ServiceId{
+					resource.WhenAvailable[i] = Queue.Dequeue(resource.WhenAvailable[i])
+					if len(resource.WhenAvailable[i]) == 0{
+						resource.WhenAvailable[i] = nil
+					}
+				}
+			}
+		}
+}
+
+func checkIfMin(minTime time.Time, isMin Resource.RequestTime) bool {
+	if minTime.Before(isMin.FinishedTIme) {
+		return true
+	}
+	return false
+}
+
+func printToTxtFile() *os.File {
+	filePointer, err := os.Create("resourceTimeAvailability.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	printToFile = bufio.NewWriter(filePointer)
+	log.SetOutput(printToFile)
+	return filePointer
+}
+
 func initGarage() {
-	resourceLIst = Resource.GetResources()
+	resourceList = Resource.GetResources()
 	requestList = *Request.GetRequests()
 }
 
 func startTimer() {
 	//Initiating timer
-	t, _ = time.Parse("15:04", "06:30")
+	t, _ = time.Parse("15:04", beginningOfTheDay)
 	const timeSkip = 15
 	for {
 		time.Sleep(time.Second)
@@ -148,8 +219,6 @@ func removeItem(slice []int, s int, carId int) []int {
 }
 
 func printToLogs(carId int, msg string) {
-	//fmt.Printf("\ncar : %d time : %s -> : %s",carId,t.Format("15:04"), msg)
-	//fmt.Fprintf(printToFile,"\ncar : %d time : %s -> : %s",carId,t.Format("15:04"), msg)
 	currentTime := C.CString(t.Format("15:04"))
 	defer C.free(unsafe.Pointer(currentTime))
 	msgToPrint := C.CString(msg)
@@ -157,20 +226,8 @@ func printToLogs(carId int, msg string) {
 	C.printToLog(C.int(carId), (*C.char)(currentTime), (*C.char)(msgToPrint))
 }
 
-func printToTxtFile() *os.File {
-	// TODO fix
-	filePointer, err := os.Create("genericOutput.txt")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	printToFile = bufio.NewWriter(filePointer)
-	//printToFile = bufio.NewWriter(os.Stdout)
-	return filePointer
-}
-
 func endOfDay() bool {
-	timesUp, _ := time.Parse("15:04", "15:30")
+	timesUp, _ := time.Parse("15:04", endOfDayInTime)
 	if t.After(timesUp) || t.Sub(timesUp) == 0 {
 		return true
 	}
