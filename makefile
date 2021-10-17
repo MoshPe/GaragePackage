@@ -1,4 +1,4 @@
 garage:
-	go build -o garage ./cmd/.
+	go build -o ahhh ./cmd/.
 runGarage:
 	./garage

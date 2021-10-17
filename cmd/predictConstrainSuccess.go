@@ -30,10 +30,11 @@ func predictConstrainSuccess(vip VIPrequest,resources map[int]Resource.Resource)
 			requestStartTime = requestStartTime.Add(time.Duration(time.Hour * time.Duration(minServiceStartTime.Hour()) +
 																	time.Minute * time.Duration(minServiceStartTime.Minute())))
 			//TODO need to remove the service id
-			removeItem(serviceIds,)
+			//removeItem(serviceIds,)
 		}
 	}
 
+	return false
 }
 
 func calculateEndTime(ch chan time.Time,vip VIPrequest, service Service.Service, resources map[int]Resource.Resource) time.Time{
@@ -43,6 +44,7 @@ func calculateEndTime(ch chan time.Time,vip VIPrequest, service Service.Service,
 	}
 	serviceStartTime := getServiceStartTime(service,resources)
 	ch <- serviceStartTime.Add(time.Hour * time.Duration(service.TimeHr))
+	return time.Time{}
 }
 
 func getServiceStartTime(service Service.Service, resources map[int]Resource.Resource) time.Time{
