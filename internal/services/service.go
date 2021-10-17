@@ -138,23 +138,27 @@ func GetServiceById(serviceId int) Service {
 
 func PrintServices(fileToPrint *bufio.Writer) {
 	for id, service := range serviceList {
-		fmt.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's [",
+		log.Printf("ID: %d, service name: %s, service work time %d ,resource amount needed: %d, resources id's [",
 			id, service.Name, service.TimeHr, service.AmountResourcesNeeded)
 		printServiceResourceList(service, fileToPrint)
-		fmt.Printf("\n")
+		log.Printf("\n")
 	}
 }
 
 func printServiceResourceList(service Service, fileToPrint *bufio.Writer) {
 	for _, resourceId := range service.ResourcesIdList {
-		fmt.Printf("%d ", resourceId)
+		log.Printf("%d ", resourceId)
 	}
-	fmt.Printf("]")
+	log.Printf("]")
 }
 
 func PrintServiceNeededResources(serviceId int, fileToPrint *bufio.Writer) {
 	service := serviceList[serviceId]
-	fmt.Printf("service name %s resources->: [", service.Name)
+	log.Print("service name "+service.Name+" resources ->: ")
+	log.Println(service.ResourcesIdList)
+	/*
+	log.Printf("service name %s resources->: [", service.Name)
 	printServiceResourceList(service, fileToPrint)
-	fmt.Printf("\n")
+	log.Printf("\n")
+	*/
 }

@@ -2,7 +2,6 @@ package resources
 
 import (
 	"bufio"
-	"container/list"
 	"fmt"
 	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 	"log"
@@ -38,10 +37,8 @@ func ImportResources() {
 		}
 		getResource.Name = Utils.InputName("resource")
 		Utils.IntInput("Please enter the resource quantity ->: ", "Wrong input resource quantity", &getResource.AmountAvailable)
+		getResource.WhenAvailable = make([][]RequestTime, getResource.AmountAvailable)
 		resourcesList[getResourceId] = getResource
-	}
-	for _, resource := range resourcesList {
-		resource.WhenAvailable = make([]list.List, resource.AmountAvailable)
 	}
 }
 
@@ -60,6 +57,7 @@ func importResourcesViaTxt(fileName string) {
 		if errResult := checkResourceValidation(resources, &getResourceId, &getResource); errResult != "" {
 			fmt.Println(errResult)
 		}
+		getResource.WhenAvailable = make([][]RequestTime, getResource.AmountAvailable)
 		resourcesList[getResourceId] = getResource
 	}
 }
@@ -96,13 +94,30 @@ func checkResourceValidation(resources []string, getResourceId *int, getResource
 
 func PrintResources(fileToPrint *bufio.Writer) {
 	for id, resource := range resourcesList {
-		fmt.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
+		log.Printf("ID: %d, resource name: %s, resource amount: %d\n", id, resource.Name, resource.AmountAvailable)
 	}
 }
 
 func PrintResourcesShort(fileToPrint *bufio.Writer) {
 	for id, resource := range resourcesList {
-		fmt.Printf("ID: %d - quantity: %d\n", id, resource.AmountAvailable)
+		log.Printf("ID: %d - quantity: %d ", id, resource.AmountAvailable)
+		for _, queueTime := range resource.WhenAvailable {
+			log.Println(queueTime)
+			/*
+			log.Printf("[")
+			printWhenAvailableTime(queueTime, fileToPrint)
+			log.Printf("]")
+			//fmt.Println(resource.WhenAvailable)
+
+			 */
+		}
+		//log.Printf("\n")
+	}
+}
+
+func printWhenAvailableTime(WhenAvailable []RequestTime,fileToPrint *bufio.Writer){
+	for _, requestTime := range WhenAvailable {
+		log.Printf("%s, ", requestTime.FinishedTIme.Format("15:04"))
 	}
 }
 

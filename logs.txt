@@ -1,0 +1,372 @@
+
+
+---------- Day 1 :) ----------
+
+
+ car : 6548090 time : 07:15 -> : arrived at the shop
+ car : 6548090 time : 07:15 -> : starting to collect resources
+ car : 6548090 time : 07:15 -> : started battery replacement
+ car : 8869011 time : 07:30 -> : arrived at the shop
+ car : 8869011 time : 07:30 -> : starting to collect resources
+ car : 8869011 time : 07:30 -> : started battery replacement
+ car : 2271963 time : 07:30 -> : arrived at the shop
+ car : 2680000 time : 07:30 -> : arrived at the shop
+ car : 2680000 time : 07:30 -> : starting to collect resources
+ car : 2680000 time : 07:30 -> : started brake repair
+ car : 2271963 time : 07:30 -> : starting to collect resources
+ car : 2271963 time : 07:30 -> : started diagnostics
+ car : 5767219 time : 07:45 -> : arrived at the shop
+ car : 5767219 time : 07:45 -> : starting to collect resources
+ car : 5767219 time : 07:45 -> : started diagnostics
+ car : 1736057 time : 07:45 -> : arrived at the shop
+ car : 1736057 time : 07:45 -> : starting to collect resources
+ car : 1736057 time : 07:45 -> : started tire replacement
+ car : 2986092 time : 08:00 -> : arrived at the shop
+ car : 2829569 time : 08:00 -> : arrived at the shop
+ car : 2829569 time : 08:00 -> : starting to collect resources
+ car : 2829569 time : 08:00 -> : started flat tire repair
+ car : 8769446 time : 08:00 -> : arrived at the shop
+ car : 8769446 time : 08:00 -> : starting to collect resources
+ car : 8769446 time : 08:00 -> : started air filter change
+ car : 3871619 time : 08:00 -> : arrived at the shop
+ car : 3871619 time : 08:00 -> : starting to collect resources
+ car : 3871619 time : 08:00 -> : started transmission replacement
+ car : 6548090 time : 08:15 -> : finished battery replacement
+ car : 6548090 time : 08:15 -> : starting to collect resources
+ car : 6548090 time : 08:15 -> : started engine replacement
+ car : 2986092 time : 08:15 -> : starting to collect resources
+ car : 2986092 time : 08:15 -> : started battery replacement
+ car : 6400629 time : 08:15 -> : arrived at the shop
+ car : 8869011 time : 08:15 -> : finished battery replacement
+ car : 8869011 time : 08:15 -> : starting to collect resources
+ car : 8869011 time : 08:15 -> : started exhaust replacement
+ car : 6400629 time : 08:15 -> : starting to collect resources
+ car : 6400629 time : 08:15 -> : started battery replacement
+ car : 2271963 time : 08:30 -> : finished diagnostics
+ car : 3484460 time : 08:30 -> : arrived at the shop
+ car : 2271963 time : 08:30 -> : starting to collect resources
+ car : 2271963 time : 08:30 -> : started battery replacement
+ car : 3484460 time : 08:30 -> : starting to collect resources
+ car : 3484460 time : 08:30 -> : started paint job
+ car : 5767219 time : 08:30 -> : finished diagnostics
+ car : 1736057 time : 08:30 -> : finished tire replacement
+ car : 1736057 time : 08:30 -> : starting to collect resources
+ car : 1736057 time : 08:30 -> : started shock absorber replacement
+ car : 9678981 time : 08:45 -> : arrived at the shop
+ car : 9678981 time : 08:45 -> : starting to collect resources
+ car : 9678981 time : 08:45 -> : started brake repair
+ car : 6321467 time : 08:45 -> : arrived at the shop
+ car : 6321467 time : 08:45 -> : starting to collect resources
+ car : 6321467 time : 08:45 -> : started alternator replacement
+ car : 8769446 time : 09:00 -> : finished air filter change
+ car : 2829569 time : 09:00 -> : finished flat tire repair
+ car : 2829569 time : 09:00 -> : starting to collect resources
+ car : 2829569 time : 09:00 -> : started diagnostics
+ car : 8769446 time : 09:00 -> : starting to collect resources
+ car : 8769446 time : 09:00 -> : started exhaust replacement
+ car : 2986092 time : 09:15 -> : finished battery replacement
+ car : 2680000 time : 09:15 -> : finished brake repair
+ car : 2680000 time : 09:15 -> : starting to collect resources
+ car : 2680000 time : 09:15 -> : started exhaust replacement
+ car : 6400629 time : 09:15 -> : finished battery replacement
+ car : 2271963 time : 09:15 -> : finished battery replacement
+ car : 8404921 time : 09:30 -> : arrived at the shop
+ car : 8404921 time : 09:30 -> : starting to collect resources
+ car : 8404921 time : 09:30 -> : started oil change
+ car : 2829569 time : 10:00 -> : finished diagnostics
+ car : 8788107 time : 10:15 -> : arrived at the shop
+ car : 8788107 time : 10:15 -> : starting to collect resources
+ car : 8788107 time : 10:15 -> : started diagnostics
+ car : 8981456 time : 10:15 -> : arrived at the shop
+ car : 8981456 time : 10:15 -> : starting to collect resources
+ car : 8981456 time : 10:15 -> : started air filter change
+ car : 8869011 time : 10:15 -> : finished exhaust replacement
+ car : 8869011 time : 10:15 -> : starting to collect resources
+ car : 8869011 time : 10:15 -> : started oil change
+ car : 2271963 time : 10:15 -> : starting to collect resources
+ car : 2271963 time : 10:15 -> : started brake repair
+ car : 8404921 time : 10:15 -> : finished oil change
+ car : 9678981 time : 10:30 -> : finished brake repair
+ car : 1736057 time : 10:30 -> : finished shock absorber replacement
+ car : 1736057 time : 10:30 -> : starting to collect resources
+ car : 1736057 time : 10:30 -> : started diagnostics
+ car : 9678981 time : 10:30 -> : starting to collect resources
+ car : 9678981 time : 10:30 -> : started shock absorber replacement
+ car : 6321467 time : 10:30 -> : finished alternator replacement
+ car : 6321467 time : 10:30 -> : starting to collect resources
+ car : 6321467 time : 10:30 -> : started flat tire repair
+ car : 7993193 time : 11:00 -> : arrived at the shop
+ car : 7871344 time : 11:00 -> : arrived at the shop
+ car : 7993193 time : 11:00 -> : starting to collect resources
+ car : 7993193 time : 11:00 -> : started brake repair
+ car : 6202984 time : 11:00 -> : arrived at the shop
+ car : 6202984 time : 11:00 -> : starting to collect resources
+ car : 6202984 time : 11:00 -> : started diagnostics
+ car : 6930079 time : 11:00 -> : arrived at the shop
+ car : 6930079 time : 11:00 -> : starting to collect resources
+ car : 6930079 time : 11:00 -> : started diagnostics
+ car : 8769446 time : 11:00 -> : finished exhaust replacement
+ car : 8788107 time : 11:00 -> : finished diagnostics
+ car : 8981456 time : 11:00 -> : finished air filter change
+ car : 8981456 time : 11:00 -> : starting to collect resources
+ car : 8981456 time : 11:00 -> : started flat tire repair
+ car : 2115240 time : 11:15 -> : arrived at the shop
+ car : 2115240 time : 11:15 -> : starting to collect resources
+ car : 2115240 time : 11:15 -> : started air filter change
+ car : 8917519 time : 11:15 -> : arrived at the shop
+ car : 8284455 time : 11:15 -> : arrived at the shop
+ car : 2680000 time : 11:15 -> : finished exhaust replacement
+ car : 8788107 time : 11:15 -> : starting to collect resources
+ car : 8788107 time : 11:15 -> : started alternator replacement
+ car : 8869011 time : 11:15 -> : finished oil change
+ car : 6865753 time : 11:30 -> : arrived at the shop
+ car : 6762042 time : 11:30 -> : arrived at the shop
+ car : 6865753 time : 11:30 -> : starting to collect resources
+ car : 6865753 time : 11:30 -> : started diagnostics
+ car : 7265954 time : 11:30 -> : arrived at the shop
+ car : 1736057 time : 11:30 -> : finished diagnostics
+ car : 1736057 time : 11:30 -> : starting to collect resources
+ car : 1736057 time : 11:30 -> : started air filter change
+ car : 6321467 time : 11:30 -> : finished flat tire repair
+ car : 6321467 time : 11:30 -> : starting to collect resources
+ car : 6321467 time : 11:30 -> : started battery replacement
+ car : 2680000 time : 11:30 -> : starting to collect resources
+ car : 2680000 time : 11:30 -> : started shock absorber replacement
+ car : 8772512 time : 11:45 -> : arrived at the shop
+ car : 8772512 time : 11:45 -> : starting to collect resources
+ car : 8772512 time : 11:45 -> : started headlights adjustment
+ car : 3871619 time : 11:45 -> : finished transmission replacement
+ car : 3871619 time : 11:45 -> : starting to collect resources
+ car : 3871619 time : 11:45 -> : started shock absorber replacement
+ car : 6202984 time : 11:45 -> : finished diagnostics
+ car : 6930079 time : 11:45 -> : finished diagnostics
+ car : 6548090 time : 12:00 -> : finished engine replacement
+ car : 7871344 time : 12:00 -> : starting to collect resources
+ car : 7871344 time : 12:00 -> : started engine replacement
+ car : 2115240 time : 12:00 -> : finished air filter change
+ car : 2115240 time : 12:00 -> : starting to collect resources
+ car : 2115240 time : 12:00 -> : started headlights adjustment
+ car : 7013083 time : 12:15 -> : arrived at the shop
+ car : 2846581 time : 12:15 -> : arrived at the shop
+ car : 1785849 time : 12:15 -> : arrived at the shop
+ car : 8981456 time : 12:15 -> : finished flat tire repair
+ car : 9002233 time : 12:15 -> : arrived at the shop
+ car : 1785849 time : 12:15 -> : starting to collect resources
+ car : 1785849 time : 12:15 -> : started air filter change
+ car : 9002233 time : 12:15 -> : starting to collect resources
+ car : 9002233 time : 12:15 -> : started paint job
+ car : 8981456 time : 12:15 -> : starting to collect resources
+ car : 8981456 time : 12:15 -> : started tire replacement
+ car : 2271963 time : 12:15 -> : finished brake repair
+ car : 3484460 time : 12:15 -> : finished paint job
+ car : 2846581 time : 12:15 -> : starting to collect resources
+ car : 2846581 time : 12:15 -> : started timing belt replacement
+ car : 6865753 time : 12:15 -> : finished diagnostics
+ car : 9678981 time : 12:30 -> : finished shock absorber replacement
+ car : 9678981 time : 12:30 -> : starting to collect resources
+ car : 9678981 time : 12:30 -> : started paint job
+ car : 8284455 time : 12:30 -> : starting to collect resources
+ car : 8284455 time : 12:30 -> : started tire replacement
+ car : 1736057 time : 12:30 -> : finished air filter change
+ car : 6321467 time : 12:30 -> : finished battery replacement
+ car : 8772512 time : 12:30 -> : finished headlights adjustment
+ car : 8772512 time : 12:30 -> : starting to collect resources
+ car : 8772512 time : 12:30 -> : started oil change
+ car : 3706821 time : 12:45 -> : arrived at the shop
+ car : 1152983 time : 12:45 -> : arrived at the shop
+ car : 1152983 time : 12:45 -> : starting to collect resources
+ car : 1152983 time : 12:45 -> : started battery replacement
+ car : 3706821 time : 12:45 -> : starting to collect resources
+ car : 3706821 time : 12:45 -> : started battery replacement
+ car : 7993193 time : 12:45 -> : finished brake repair
+ car : 8917519 time : 12:45 -> : starting to collect resources
+ car : 8917519 time : 12:45 -> : started timing belt replacement
+ car : 6302936 time : 13:00 -> : arrived at the shop
+ car : 8189266 time : 13:00 -> : arrived at the shop
+ car : 6302936 time : 13:00 -> : starting to collect resources
+ car : 6302936 time : 13:00 -> : started battery replacement
+ car : 2115240 time : 13:00 -> : finished headlights adjustment
+ car : 1785849 time : 13:00 -> : finished air filter change
+ car : 1785849 time : 13:00 -> : starting to collect resources
+ car : 1785849 time : 13:00 -> : started headlights adjustment
+ car : 8981456 time : 13:00 -> : finished tire replacement
+ car : 7013083 time : 13:00 -> : starting to collect resources
+ car : 7013083 time : 13:00 -> : started tire replacement
+ car : 8788107 time : 13:15 -> : finished alternator replacement
+ car : 6762042 time : 13:15 -> : starting to collect resources
+ car : 6762042 time : 13:15 -> : started brake repair
+ car : 9254462 time : 13:30 -> : arrived at the shop
+ car : 9254462 time : 13:30 -> : starting to collect resources
+ car : 9254462 time : 13:30 -> : started battery replacement
+ car : 8284455 time : 13:30 -> : finished tire replacement
+ car : 6202984 time : 13:30 -> : starting to collect resources
+ car : 6202984 time : 13:30 -> : started tire replacement
+ car : 2680000 time : 13:30 -> : finished shock absorber replacement
+ car : 2271963 time : 13:30 -> : starting to collect resources
+ car : 2271963 time : 13:30 -> : started timing belt replacement
+ car : 8772512 time : 13:30 -> : finished oil change
+ car : 7569025 time : 13:45 -> : arrived at the shop
+ car : 3153895 time : 13:45 -> : arrived at the shop
+ car : 9896689 time : 13:45 -> : arrived at the shop
+ car : 1152983 time : 13:45 -> : finished battery replacement
+ car : 9896689 time : 13:45 -> : starting to collect resources
+ car : 9896689 time : 13:45 -> : started air filter change
+ car : 3706821 time : 13:45 -> : finished battery replacement
+ car : 3871619 time : 13:45 -> : finished shock absorber replacement
+ car : 6930079 time : 13:45 -> : starting to collect resources
+ car : 6930079 time : 13:45 -> : started transmission replacement
+ car : 6302936 time : 14:00 -> : finished battery replacement
+ car : 1785849 time : 14:00 -> : finished headlights adjustment
+ car : 7013083 time : 14:00 -> : finished tire replacement
+ car : 6865753 time : 14:00 -> : starting to collect resources
+ car : 6865753 time : 14:00 -> : started flat tire repair
+ car : 9254462 time : 14:15 -> : finished battery replacement
+ car : 6202984 time : 14:30 -> : finished tire replacement
+ car : 8981456 time : 14:30 -> : starting to collect resources
+ car : 8981456 time : 14:30 -> : started brake repair
+ car : 9896689 time : 14:30 -> : finished air filter change
+ car : 6865753 time : 15:00 -> : finished flat tire repair
+ car : 2115240 time : 15:00 -> : starting to collect resources
+ car : 2115240 time : 15:00 -> : started exhaust replacement
+ car : 6762042 time : 15:15 -> : finished brake repair
+ car : 6302936 time : 15:15 -> : starting to collect resources
+ car : 6302936 time : 15:15 -> : started brake repair
+ car : 2846581 time : 15:15 -> : finished timing belt replacement
+ car : 1152983 time : 15:15 -> : starting to collect resources
+ car : 1152983 time : 15:15 -> : started flat tire repair
+ car : 8917519 time : 15:45 -> : finished timing belt replacement
+ car : 7871344 time : 16:00 -> : finished engine replacement
+ car : 9002233 time : 16:00 -> : finished paint job
+ car : 1152983 time : 16:15 -> : finished flat tire repair
+ car : 9678981 time : 16:30 -> : finished paint job
+ car : 8981456 time : 16:30 -> : finished brake repair
+ car : 2271963 time : 16:30 -> : finished timing belt replacement
+ car : 2115240 time : 17:00 -> : finished exhaust replacement
+ car : 6302936 time : 17:15 -> : finished brake repair
+ car : 6930079 time : 17:45 -> : finished transmission replacement
+
+---------- Day 2 :) ----------
+
+
+ car : 9896689 time : 06:30 -> : arrived at the shop
+ car : 6762042 time : 06:30 -> : arrived at the shop
+ car : 6321467 time : 06:30 -> : arrived at the shop
+ car : 7265954 time : 06:30 -> : arrived at the shop
+ car : 6762042 time : 06:30 -> : starting to collect resources
+ car : 8788107 time : 06:30 -> : arrived at the shop
+ car : 9254462 time : 06:30 -> : arrived at the shop
+ car : 9678981 time : 06:30 -> : arrived at the shop
+ car : 3706821 time : 06:30 -> : arrived at the shop
+ car : 6762042 time : 06:30 -> : started flat tire repair
+ car : 6930079 time : 06:30 -> : arrived at the shop
+ car : 8772512 time : 06:30 -> : arrived at the shop
+ car : 7013083 time : 06:30 -> : arrived at the shop
+ car : 2680000 time : 06:30 -> : arrived at the shop
+ car : 1152983 time : 06:30 -> : arrived at the shop
+ car : 2115240 time : 06:30 -> : arrived at the shop
+ car : 6302936 time : 06:30 -> : arrived at the shop
+ car : 7569025 time : 06:30 -> : arrived at the shop
+ car : 2846581 time : 06:30 -> : arrived at the shop
+ car : 8189266 time : 06:30 -> : arrived at the shop
+ car : 3153895 time : 06:30 -> : arrived at the shop
+ car : 8788107 time : 06:30 -> : starting to collect resources
+ car : 8788107 time : 06:30 -> : started brake repair
+ car : 3706821 time : 06:30 -> : starting to collect resources
+ car : 3706821 time : 06:30 -> : started paint job
+ car : 7265954 time : 06:30 -> : starting to collect resources
+ car : 7265954 time : 06:30 -> : started tire replacement
+ car : 6321467 time : 06:30 -> : starting to collect resources
+ car : 6321467 time : 06:30 -> : started transmission replacement
+ car : 9254462 time : 06:30 -> : starting to collect resources
+ car : 9254462 time : 06:30 -> : started alternator replacement
+ car : 9678981 time : 06:30 -> : starting to collect resources
+ car : 9678981 time : 06:30 -> : started flat tire repair
+ car : 8772512 time : 06:30 -> : starting to collect resources
+ car : 8772512 time : 06:30 -> : started shock absorber replacement
+ car : 6930079 time : 06:30 -> : starting to collect resources
+ car : 6930079 time : 06:30 -> : started alternator replacement
+ car : 1152983 time : 06:30 -> : starting to collect resources
+ car : 1152983 time : 06:30 -> : started paint job
+ car : 6762042 time : 07:30 -> : finished flat tire repair
+ car : 2680000 time : 07:30 -> : starting to collect resources
+ car : 2680000 time : 07:30 -> : started engine replacement
+ car : 7265954 time : 07:30 -> : finished tire replacement
+ car : 8189266 time : 07:30 -> : starting to collect resources
+ car : 8189266 time : 07:30 -> : started alternator replacement
+ car : 9678981 time : 07:30 -> : finished flat tire repair
+ car : 2115240 time : 07:30 -> : starting to collect resources
+ car : 2115240 time : 07:30 -> : started tire replacement
+ car : 8788107 time : 08:30 -> : finished brake repair
+ car : 7013083 time : 08:30 -> : starting to collect resources
+ car : 7013083 time : 08:30 -> : started shock absorber replacement
+ car : 9254462 time : 08:30 -> : finished alternator replacement
+ car : 2846581 time : 08:30 -> : starting to collect resources
+ car : 2846581 time : 08:30 -> : started shock absorber replacement
+ car : 2115240 time : 08:30 -> : finished tire replacement
+ car : 8772512 time : 08:30 -> : finished shock absorber replacement
+ car : 9254462 time : 08:30 -> : starting to collect resources
+ car : 9254462 time : 08:30 -> : started timing belt replacement
+ car : 6930079 time : 08:30 -> : finished alternator replacement
+ car : 8772512 time : 08:30 -> : starting to collect resources
+ car : 8772512 time : 08:30 -> : started flat tire repair
+ car : 6930079 time : 08:30 -> : starting to collect resources
+ car : 6930079 time : 08:30 -> : started exhaust replacement
+ car : 8189266 time : 09:30 -> : finished alternator replacement
+ car : 8772512 time : 09:30 -> : finished flat tire repair
+ car : 3153895 time : 09:30 -> : starting to collect resources
+ car : 3153895 time : 09:30 -> : started exhaust replacement
+ car : 8189266 time : 09:30 -> : starting to collect resources
+ car : 8189266 time : 09:30 -> : started shock absorber replacement
+ car : 3706821 time : 10:30 -> : finished paint job
+ car : 7013083 time : 10:30 -> : finished shock absorber replacement
+ car : 7569025 time : 10:30 -> : starting to collect resources
+ car : 7569025 time : 10:30 -> : started alternator replacement
+ car : 6321467 time : 10:30 -> : finished transmission replacement
+ car : 2846581 time : 10:30 -> : finished shock absorber replacement
+ car : 7013083 time : 10:30 -> : starting to collect resources
+ car : 7013083 time : 10:30 -> : started transmission replacement
+ car : 2846581 time : 10:30 -> : starting to collect resources
+ car : 2846581 time : 10:30 -> : started alternator replacement
+ car : 1152983 time : 10:30 -> : finished paint job
+ car : 6930079 time : 10:30 -> : finished exhaust replacement
+ car : 2680000 time : 11:30 -> : finished engine replacement
+ car : 6302936 time : 11:30 -> : starting to collect resources
+ car : 6302936 time : 11:30 -> : started engine replacement
+ car : 9254462 time : 11:30 -> : finished timing belt replacement
+ car : 3153895 time : 11:30 -> : finished exhaust replacement
+ car : 8189266 time : 11:30 -> : finished shock absorber replacement
+ car : 8189266 time : 11:30 -> : starting to collect resources
+ car : 8189266 time : 11:30 -> : started exhaust replacement
+ car : 7569025 time : 12:30 -> : finished alternator replacement
+ car : 7569025 time : 12:30 -> : starting to collect resources
+ car : 7569025 time : 12:30 -> : started flat tire repair
+ car : 2846581 time : 12:30 -> : finished alternator replacement
+ car : 2846581 time : 12:30 -> : starting to collect resources
+ car : 2846581 time : 12:30 -> : started exhaust replacement
+ car : 7569025 time : 13:30 -> : finished flat tire repair
+ car : 8189266 time : 13:30 -> : finished exhaust replacement
+ car : 7013083 time : 14:30 -> : finished transmission replacement
+ car : 7569025 time : 14:30 -> : starting to collect resources
+ car : 7569025 time : 14:30 -> : started transmission replacement
+ car : 2846581 time : 14:30 -> : finished exhaust replacement
+ car : 6302936 time : 15:30 -> : finished engine replacement
+ car : 7569025 time : 18:30 -> : finished transmission replacement
+
+---------- Day 3 :) ----------
+
+
+ car : 9896689 time : 06:30 -> : arrived at the shop
+ car : 6302936 time : 06:30 -> : arrived at the shop
+ car : 7013083 time : 06:30 -> : arrived at the shop
+ car : 9896689 time : 06:30 -> : starting to collect resources
+ car : 9896689 time : 06:30 -> : started transmission replacement
+ car : 7013083 time : 06:30 -> : starting to collect resources
+ car : 7013083 time : 06:30 -> : started engine replacement
+ car : 7013083 time : 10:30 -> : finished engine replacement
+ car : 9896689 time : 10:30 -> : finished transmission replacement
+ car : 6302936 time : 10:30 -> : starting to collect resources
+ car : 6302936 time : 10:30 -> : started transmission replacement
+ car : 6302936 time : 14:30 -> : finished transmission replacement
+
+---------- Day 4 :) ----------
+
