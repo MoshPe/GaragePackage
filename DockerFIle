@@ -1,0 +1,12 @@
+FROM golang:1.17.2-alpine
+
+WORKDIR /usr/go/src/github.com/MoshPe/GaragePackage
+
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+
+COPY *.go ./
+
+RUN make garage
+RUN make runGarage

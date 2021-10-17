@@ -30,7 +30,7 @@ func predictConstrainSuccess(vip VIPrequest,resources map[int]Resource.Resource)
 			requestStartTime = requestStartTime.Add(time.Duration(time.Hour * time.Duration(minServiceStartTime.Hour()) +
 																	time.Minute * time.Duration(minServiceStartTime.Minute())))
 			//TODO need to remove the service id
-			removeItem(serviceIds,)
+			//removeItem(serviceIds,)
 		}
 	}
 
