@@ -1,4 +1,4 @@
-package Test
+package Garage
 /*
 import (
 	Request "github.com/MoshPe/GaragePackage/internal/requests"

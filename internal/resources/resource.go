@@ -20,14 +20,11 @@ func GetResources() map[int]Resource {
 }
 
 func ImportResources() {
-	//TODO
-	//getImportSelect := getImportSelection("resources")
-	getImportSelect := 1
+
+	getImportSelect := Utils.GetImportSelection("resources")
 	switch getImportSelect {
 	case Utils.ImportViaTextFile:
-		//TODO
-		//importResourcesViaTxt(getFileName())
-		importResourcesViaTxt(inputResources)
+		importResourcesViaTxt(Utils.GetFileName())
 	case Utils.AddManually:
 		var getResource Resource
 		var getResourceId int

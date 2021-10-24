@@ -26,14 +26,10 @@ func ImportServices() {
 		fmt.Println("Resources are needed to be imported or created first!!")
 		return
 	}
-	//TODO
-	//getImportSelect := getImportSelection("services")
-	getImportSelect := 1
+	getImportSelect := Utils.GetImportSelection("services")
 	switch getImportSelect {
 	case Utils.ImportViaTextFile:
-		//TODO
-		//importServicesViaTxt(getFileName())
-		importServicesViaTxt(inputServices)
+		importServicesViaTxt(Utils.GetFileName())
 	case Utils.AddManually:
 		var getService Service
 		var getServiceId int

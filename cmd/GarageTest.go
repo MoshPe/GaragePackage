@@ -1,9 +1,8 @@
-// Package Test Copyright Some Company Corp.
+// Package Garage Package Test Copyright Some Company Corp.
 // All Rights Reserved// Here is where we explain the package.
 // Some other stuff.
-package Test
+package Garage
 
-import "C"
 import (
 	"bufio"
 	"fmt"
@@ -16,7 +15,15 @@ import (
 	"os"
 	"sync"
 	"time"
+	"unsafe"
 )
+
+/*
+#include <stdio.h>
+#include <stdlib.h>
+#include "fileWrite.h"
+*/
+import "C"
 
 var (
 	t                 time.Time
@@ -31,7 +38,8 @@ const(
 	beginningOfTheDay = "06:30"
 )
 
-func Test() {
+func Run() {
+	C.deleteFileIfExist()
 	hmm := printToTxtFile()
 	defer func() {
 		err := hmm.Close()
@@ -211,6 +219,11 @@ func removeItem(slice []int, s int, carId int) []int {
 }
 
 func printToLogs(carId int, msg string) {
+	currentTime := C.CString(t.Format("15:04"))
+	defer C.free(unsafe.Pointer(currentTime))
+	msgToPrint := C.CString(msg)
+	defer C.free(unsafe.Pointer(msgToPrint))
+	C.printToLog(C.int(carId), (*C.char)(currentTime), (*C.char)(msgToPrint))
 	log.Println("car : " +string(carId)+ " time : "+t.Format("15:04")+" -> : "+msg)
 }
 
@@ -269,6 +282,7 @@ Run:
 	exitProgram := false
 	for isRequestsEmpty && !exitProgram {
 		isRequestsEmpty = false
+		C.printDayCountToLog(C.int(dayCount))
 		fmt.Fprintf(printToFile,"\n\n---------- Day %d :) ----------\n\n",dayCount)
 		dayCount++
 		t, _ = time.Parse("15:04", "06:30")
