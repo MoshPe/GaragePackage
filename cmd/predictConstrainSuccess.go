@@ -1,5 +1,5 @@
-package main
-
+package Test
+/*
 import (
 	Request "github.com/MoshPe/GaragePackage/internal/requests"
 	Resource "github.com/MoshPe/GaragePackage/internal/resources"
@@ -50,7 +50,7 @@ func calculateEndTime(ch chan time.Time,vip VIPrequest, service Service.Service,
 func getServiceStartTime(service Service.Service, resources map[int]Resource.Resource) time.Time{
 	var resourcesStartTime []time.Time
 	for _, resourceId := range service.ResourcesIdList {
-		minTime, _ := time.Parse("15:04", endOfDayInTime)
+		minTime, _ := time.Parse("15:04", EndOfDayInTime)
 		resourcesQueueTime := resources[resourceId].WhenAvailable
 		for i := 0; i < len(resourcesQueueTime); i++ {
 			if resourcesQueueTime[i] != nil {
@@ -85,3 +85,4 @@ func findMinTime(times []time.Time) time.Time{
 	return maxTime
 }
 
+*/

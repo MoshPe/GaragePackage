@@ -1,8 +1,9 @@
-// Copyright Some Company Corp.
+// Package Test Copyright Some Company Corp.
 // All Rights Reserved// Here is where we explain the package.
 // Some other stuff.
-package main
+package Test
 
+import "C"
 import (
 	"bufio"
 	"fmt"
@@ -15,15 +16,7 @@ import (
 	"os"
 	"sync"
 	"time"
-	"unsafe"
 )
-
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include "fileWrite.h"
-*/
-import "C"
 
 var (
 	t                 time.Time
@@ -34,12 +27,11 @@ var (
 )
 
 const(
-	endOfDayInTime = "15:30"
+	EndOfDayInTime = "15:30"
 	beginningOfTheDay = "06:30"
 )
 
-func main() {
-	C.deleteFileIfExist()
+func Test() {
 	hmm := printToTxtFile()
 	defer func() {
 		err := hmm.Close()
@@ -140,7 +132,7 @@ func insertRequestOutTime(carId,ServiceId int, FinishedTIme time.Time,resource R
 }
 
 func findMinimumFinishTime(arrayOfTimeList [][]Resource.RequestTime) int{
-	minTime, _ := time.Parse("15:04", endOfDayInTime)
+	minTime, _ := time.Parse("15:04", EndOfDayInTime)
 	var minInd int
 	for i := 0; i < len(arrayOfTimeList); i++ {
 		if arrayOfTimeList[i] != nil {
@@ -219,15 +211,11 @@ func removeItem(slice []int, s int, carId int) []int {
 }
 
 func printToLogs(carId int, msg string) {
-	currentTime := C.CString(t.Format("15:04"))
-	defer C.free(unsafe.Pointer(currentTime))
-	msgToPrint := C.CString(msg)
-	defer C.free(unsafe.Pointer(msgToPrint))
-	C.printToLog(C.int(carId), (*C.char)(currentTime), (*C.char)(msgToPrint))
+	log.Println("car : " +string(carId)+ " time : "+t.Format("15:04")+" -> : "+msg)
 }
 
 func endOfDay() bool {
-	timesUp, _ := time.Parse("15:04", endOfDayInTime)
+	timesUp, _ := time.Parse("15:04", EndOfDayInTime)
 	if t.After(timesUp) || t.Sub(timesUp) == 0 {
 		return true
 	}
@@ -277,18 +265,11 @@ Run:
 	waitGroup := &sync.WaitGroup{}
 	go startTimer()
 	initGarage()
-	//Resource.PrintResources(printToFile)
-	//fmt.Println()
-	//Service.PrintServices(printToFile)
-	//fmt.Println()
-	//Request.PrintRequests(printToFile)
-	//fmt.Println()
 	isRequestsEmpty := true
 	exitProgram := false
 	for isRequestsEmpty && !exitProgram {
 		isRequestsEmpty = false
-		C.printDayCountToLog(C.int(dayCount))
-		//fmt.Fprintf(printToFile,"\n\n---------- Day %d :) ----------\n\n",dayCount)
+		fmt.Fprintf(printToFile,"\n\n---------- Day %d :) ----------\n\n",dayCount)
 		dayCount++
 		t, _ = time.Parse("15:04", "06:30")
 		requestList.Range(func(key, value interface{}) bool {

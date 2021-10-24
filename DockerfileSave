@@ -1,0 +1,32 @@
+FROM golang:1.17.2 AS builder
+
+WORKDIR /go/src/github.com/MoshPe/GaragePackae/
+RUN touch hmm.txt .
+RUN ls -la .
+COPY . .
+RUN ls -la ./cmd/
+RUN go mod download
+RUN CGO_ENABLED=0 go build -o app ./cmd/.
+RUN ls -la .
+
+FROM scratch
+
+COPY --from=builder /go/src/github.com/MoshPe/GaragePackae/app /
+RUN ls -la .
+CMD ["./app"]FROM golang:1.17.2 AS builder
+
+WORKDIR /go/src/github.com/MoshPe/GaragePackae/
+RUN touch hmm.txt .
+RUN ls -la .
+COPY . .
+RUN ls -la ./cmd/
+RUN go mod download
+RUN CGO_ENABLED=0 go build -o app ./cmd/.
+RUN ls -la .
+
+FROM scratch
+
+COPY --from=builder /go/src/github.com/MoshPe/GaragePackae/app /
+RUN ls -la .
+CMD ["./app"]
+
