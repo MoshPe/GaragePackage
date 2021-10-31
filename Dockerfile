@@ -14,7 +14,7 @@ RUN go get -d -v
 RUN go build -a -ldflags '-extldflags "-static"' -o /go/bin/hmm
 RUN ls -la .
 
-FROM scratch
+FROM amd64/alpine
 # Copy static executable.
 COPY --from=builder /go/bin/hmm /go/bin/hmm
 

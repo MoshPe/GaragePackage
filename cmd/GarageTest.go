@@ -13,6 +13,7 @@ import (
 	Utils "github.com/MoshPe/GaragePackage/pkg/utils"
 	"log"
 	"os"
+	"strconv"
 	"sync"
 	"time"
 	"unsafe"
@@ -224,7 +225,7 @@ func printToLogs(carId int, msg string) {
 	msgToPrint := C.CString(msg)
 	defer C.free(unsafe.Pointer(msgToPrint))
 	C.printToLog(C.int(carId), (*C.char)(currentTime), (*C.char)(msgToPrint))
-	log.Println("car : " +string(carId)+ " time : "+t.Format("15:04")+" -> : "+msg)
+	log.Println("car : " +strconv.FormatInt(int64(carId),10)+ " time : "+t.Format("15:04")+" -> : "+msg)
 }
 
 func endOfDay() bool {
